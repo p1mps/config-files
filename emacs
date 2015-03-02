@@ -1,62 +1,90 @@
+;;save session
+(desktop-save-mode 1)
 
-;;don't break lines!
-(auto-fill-mode 0) 
-;;ido
+;;colors
+(add-to-list 'default-frame-alist '(foreground-color . "green"))
+(add-to-list 'default-frame-alist '(background-color . "black"))
+
+;; midnight mode purges buffers which haven't been displayed in 3 days
+(require 'midnight)
+(setq midnight-mode 't)
+
+;;ido plugin
 (require 'ido)
 (ido-mode t)
 
-;; Set font
-;;(set-default-font "*-lucidatypewriter-medium-*-*-*-12-*-*-*-*-*-*-*")
 
-;; no need for menubar scrollbar toolbar!
-;; that is not the real way to use emacs ;)
-(tool-bar-mode nil)
-(menu-bar-mode nil)
-(scroll-bar-mode nil)
+;;syntax highlighting
+(global-font-lock-mode 't)
 
-;;highlight current line
+;;disabling the menu
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+
+;;melpa
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.org/packages/") t)
+(when (< emacs-major-version 24)
+  ;; For important compatibility libraries like cl-lib
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+(package-initialize)
+
+
+;;editing php files
+(defun setup-php ()
+  ;; enable web mode
+  (web-mode)
+
+  ;; make these variables local
+  (make-local-variable 'web-mode-code-indent-offset)
+  (make-local-variable 'web-mode-markup-indent-offset)
+  (make-local-variable 'web-mode-css-indent-offset)
+
+  ;; set indentation, can set different indentation level for different code type
+  (setq web-mode-code-indent-offset 4)
+  (setq web-mode-css-indent-offset 2)
+  (setq web-mode-markup-indent-offset 2))
+  (setq web-mode-ac-sources-alist
+      '(("css" . (ac-source-words-in-buffer ac-source-css-property))
+        ("html" . (ac-source-words-in-buffer ac-source-abbrev))
+        ("php" . (ac-source-words-in-buffer
+                  ac-source-words-in-same-mode-buffers
+                  ac-source-dictionary))))
+;; (flycheck-define-checker my-php
+;;   "A PHP syntax checker using the PHP command line interpreter.
+
+;; See URL `http://php.net/manual/en/features.commandline.php'."
+;;   :command ("php" "-l" "-d" "error_reporting=E_ALL" "-d" "display_errors=1"
+;;             "-D" "log_errors=0" source)
+;;   :error-patterns
+;;   ((error line-start (or "Parse" "Fatal" "syntax") " error" (any ":" ",") " "
+;;           (message) " in " (file-name) " on line " line line-end))
+;;   :modes (php-mode php+-mode web-mode))
+
+(add-to-list 'auto-mode-alist '("\\.php$" . setup-php))
+
+;;parenthesis
+(show-paren-mode 1)
+;;line numbers
+(global-linum-mode 1)
+;;expand region shortcut
+(require 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
+;;auto indent
+(auto-indent-global-mode)
+;;{} on osx
+(setq mac-option-modifier nil
+      mac-command-modifier 'meta
+      x-select-enable-clipboard t)
+
+(require 'yasnippet)
+(yas-global-mode 1)
+
+(auto-complete-mode 1)
+
+(setq-default tab-width 4)
+
 (global-hl-line-mode 1)
 
-
-;;plugins
-(add-to-list 'load-path
-             "~/.emacs.d/plugins/")
-
-;;yasnippet
-(require 'yasnippet-bundle)
-
-;;django
-(require 'django-html-mode)
-(require 'django-mode)
-(yas/load-directory "~/.emacs.d/plugins/snippets")
-(add-to-list 'auto-mode-alist '("\\.djhtml$" . django-html-mode))
-
-
-;;color-theme
-(require 'color-theme)
-(load "~/.emacs.d/plugins/color-theme-tango.el")
-;;(load "~/.emacs.d/plugins/color-theme-charcoal-personal.el")
-(color-theme-tango)
-
-;;only 1 tab
-(global-set-key (kbd "TAB") 'self-insert-command)
-
-
-(require 'tabbar)
-(tabbar-mode 1)
-
-
-;; Automate the fetching of mail.
-(require 'gnus-demon)
-
-;; Check for new mail once in every this many minutes.
-(gnus-demon-add-handler 'gnus-demon-scan-news 5 nil)
-
-
-;;fullscreen
-(defun toggle-fullscreen ()
-  (interactive)
-  (set-frame-parameter nil 'fullscreen (if (frame-parameter nil 'fullscreen)
-                                           nil
-                                           'fullboth)))
-(global-set-key [(meta return)] 'toggle-fullscreen)
+(global-set-key (kbd "RET") 'newline-and-indent)
