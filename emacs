@@ -47,7 +47,7 @@ mac-command-modifier 'meta
 x-select-enable-clipboard t)
 ;;autocomplete and yasnippet
 (yas-global-mode 1)
-(auto-complete-mode 1)
+(global-auto-complete-mode 1)
 (setq-default tab-width 4)
 (global-set-key (kbd "RET") 'newline-and-indent)
 
@@ -66,4 +66,6 @@ x-select-enable-clipboard t)
 (global-git-gutter-mode t)
 ;;buffer names
 (setq uniquify-buffer-name-style 'forward)
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
 (provide '.emacs)

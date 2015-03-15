@@ -12,3 +12,4 @@
 (require 'php-auto-yasnippets)
 (require 'web-mode)
 (require 'moz)
+(require 'smex)
