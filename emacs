@@ -1,4 +1,3 @@
-
 ;;emacs on mac
 ;;brew install emacs --cocoa --srgb
 
