@@ -1,62 +1,79 @@
+;;emacs on mac
+;;brew install emacs --cocoa --srgb
 
-;;don't break lines!
-(auto-fill-mode 0) 
-;;ido
-(require 'ido)
+;;melpa
+(require 'package)
+(add-to-list 'package-archives
+'("melpa" . "http://melpa.org/packages/") t)
+(when (< emacs-major-version 24)
+;; For important compatibility libraries like cl-lib
+(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+(package-initialize)
+
+;; Load all ".el" files under ~/.emacs.d/config directory.
+(load "~/.emacs.d/load-directory")
+(load-directory "~/.emacs.d/config")
+
+
+;;save desktop file
+(desktop-save-mode 1)
+
+;; midnight mode purges buffers which haven't been displayed in 3 days
+(setq midnight-mode 't)
+
+;;ido plugin
 (ido-mode t)
 
-;; Set font
-;;(set-default-font "*-lucidatypewriter-medium-*-*-*-12-*-*-*-*-*-*-*")
+;;syntax highlighting
+(global-font-lock-mode 't)
 
-;; no need for menubar scrollbar toolbar!
-;; that is not the real way to use emacs ;)
-(tool-bar-mode nil)
-(menu-bar-mode nil)
-(scroll-bar-mode nil)
+;;disabling the menu
+(tool-bar-mode -1)
+(menu-bar-mode -1)
 
-;;highlight current line
-(global-hl-line-mode 1)
+;;flycheck
+(add-hook 'after-init-hook #'global-flycheck-mode)
+;;check parenthesis
+(show-paren-mode 1)
+;;line numbers
+(global-linum-mode 1)
+;;expand region shortcut
+(global-set-key (kbd "C-=") 'er/expand-region)
+;;auto indent
+(auto-indent-global-mode)
+;;{} on osx
+(setq mac-option-modifier nil
+mac-command-modifier 'meta
+x-select-enable-clipboard t)
+;;autocomplete and yasnippet
+(yas-global-mode 1)
+(auto-complete-mode 1)
+(setq-default tab-width 4)
+(global-set-key (kbd "RET") 'newline-and-indent)
 
+(setq multi-term-program "/bin/zsh")
 
-;;plugins
-(add-to-list 'load-path
-             "~/.emacs.d/plugins/")
+;;drag and stuff
+(drag-stuff-global-mode)
 
-;;yasnippet
-(require 'yasnippet-bundle)
+;;increase text
+(global-set-key [C-kp-add] 'text-scale-increase)
+(global-set-key [C-kp-subtract] 'text-scale-decrease)
+;;auto revert
+(global-auto-revert-mode t)
+;;show git
+(global-git-gutter-mode t)
+(global-git-gutter-mode t)
+;;buffer names
+(setq uniquify-buffer-name-style 'forward)
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+(global-auto-complete-mode 1)
+(getenv "PATH")
+(setenv "PATH"
+        (concat
+         "/usr/texbin" ":"
 
-;;django
-(require 'django-html-mode)
-(require 'django-mode)
-(yas/load-directory "~/.emacs.d/plugins/snippets")
-(add-to-list 'auto-mode-alist '("\\.djhtml$" . django-html-mode))
-
-
-;;color-theme
-(require 'color-theme)
-(load "~/.emacs.d/plugins/color-theme-tango.el")
-;;(load "~/.emacs.d/plugins/color-theme-charcoal-personal.el")
-(color-theme-tango)
-
-;;only 1 tab
-(global-set-key (kbd "TAB") 'self-insert-command)
-
-
-(require 'tabbar)
-(tabbar-mode 1)
-
-
-;; Automate the fetching of mail.
-(require 'gnus-demon)
-
-;; Check for new mail once in every this many minutes.
-(gnus-demon-add-handler 'gnus-demon-scan-news 5 nil)
-
-
-;;fullscreen
-(defun toggle-fullscreen ()
-  (interactive)
-  (set-frame-parameter nil 'fullscreen (if (frame-parameter nil 'fullscreen)
-                                           nil
-                                           'fullboth)))
-(global-set-key [(meta return)] 'toggle-fullscreen)
+         (getenv "PATH")))
+(add-hook 'LaTeX-mode-hook #'latex-extra-mode)
+(provide '.emacs)
