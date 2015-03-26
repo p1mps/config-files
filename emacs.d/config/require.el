@@ -13,3 +13,7 @@
 (require 'web-mode)
 (require 'moz)
 (require 'smex)
+(require 'window-number)
+(require 'google-translate)
+(require 'google-translate-smooth-ui)
+(require 'buffer-move)
