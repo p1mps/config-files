@@ -68,13 +68,18 @@ x-select-enable-clipboard t)
 (setq uniquify-buffer-name-style 'forward)
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
-<<<<<<< HEAD
 (global-auto-complete-mode 1)
 (getenv "PATH")
 (setenv "PATH"
         (concat
          "/usr/texbin" ":"
-
          (getenv "PATH")))
 (add-hook 'LaTeX-mode-hook #'latex-extra-mode)
+(global-set-key "\C-ct" 'google-translate-smooth-translate)
+
+(window-number-meta-mode 1)
+(setq x-select-enable-clipboard nil)
+(turn-on-pbcopy)
+(flymake-php-load)
+
 (provide '.emacs)
