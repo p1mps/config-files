@@ -1,0 +1,3 @@
+set syntax
+
+set number
