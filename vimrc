@@ -27,3 +27,4 @@ set wildmode=full wildmenu
 set t_Co=256
 set number
 set laststatus=2
+set incsearch 
