@@ -7,7 +7,7 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-
+Plugin 'Shougo/neocomplete.vim'
 Plugin 'kien/ctrlp.vim.git'
 Plugin 'jaxbot/github-issues.vim.git'
 Plugin 'bling/vim-airline'
@@ -40,3 +40,4 @@ autocmd BufWritePre * :%s/\s\+$//e
 set backupdir=/tmp
 set directory=/tmp
 autocmd  FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
+noremap <Leader>u :call PhpInsertUse()<CR>
