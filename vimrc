@@ -12,11 +12,12 @@ Plugin 'kien/ctrlp.vim.git'
 Plugin 'jaxbot/github-issues.vim.git'
 Plugin 'bling/vim-airline'
 Plugin 'scrooloose/nerdcommenter.git'
+Plugin 'easymotion/vim-easymotion.git'
 Bundle 'arnaud-lb/vim-php-namespace'
 Bundle 'Shougo/vimproc'
 Bundle 'Shougo/unite.vim'
 Bundle 'joonty/vim-phpunitqf.git'
-
+Plugin 'tpope/vim-fugitive'
 
 
 call vundle#end()            " required
@@ -40,4 +41,9 @@ autocmd BufWritePre * :%s/\s\+$//e
 set backupdir=/tmp
 set directory=/tmp
 autocmd  FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
+let g:ctrlp_map = '<c-o>'
+let g:ctrlp_cmd = 'CtrlP'
+:nnoremap <C-n> :bnext<CR>
+:nnoremap <C-p> :bprevious<CR>
+inoremap <Leader>u <C-O>:call PhpInsertUse()<CR>
 noremap <Leader>u :call PhpInsertUse()<CR>
