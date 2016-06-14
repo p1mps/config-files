@@ -17,6 +17,7 @@ Bundle 'arnaud-lb/vim-php-namespace'
 Bundle 'Shougo/vimproc'
 Bundle 'Shougo/unite.vim'
 Bundle 'joonty/vim-phpunitqf.git'
+Bundle 'farseer90718/vim-taskwarrior'
 Plugin 'tpope/vim-fugitive'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'rking/ag.vim'
@@ -27,6 +28,11 @@ Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-notes'
 Plugin 'scrooloose/syntastic'
 Plugin 'jiangmiao/auto-pairs'
+Plugin 'chriskempson/base16-vim'
+Plugin 'tacahiroy/ctrlp-funky'
+Bundle 'takac/vim-spotifysearch'
+Plugin 'scrooloose/nerdtree'
+Plugin 'vim-scripts/PreserveNoEOL'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -66,14 +72,13 @@ set visualbell           " don't beep
 set noerrorbells         " don't beep
 set mouse=a
 set hlsearch
-let g:github_access_token = "207db42ef1193ddece531265c50adfda2c921537"
+let g:github_access_token = "c51ac6beb44949c53b8506e0569680f1f2b491da"
 set runtimepath^=~/.vim/bundle/ag
 let g:ag_working_path_mode="r"
 set hidden
 map <F5> <Esc>:EnableFastPHPFolds<Cr>
 map <F6> <Esc>:EnablePHPFolds<Cr>
 map <F7> <Esc>:DisablePHPFolds<Cr>
-set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespac "
 set clipboard+=unnamed
 :let g:notes_directories = ['~/Dropbox/Notes']
 set statusline+=%#warningmsg#
@@ -84,4 +89,30 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-let g:syntastic_php_checkers = ['php']
+let g:syntastic_php_checkers = ['php', 'phpcs']
+set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespac "
+set list
+nmap <Leader>l I\Logger::error(print_r($word, TRUE));
+set noeol
+noremap <Leader>f :CtrlPFunky<CR>
+noremap <Leader>t :CtrlPTag<CR>
+set colorcolumn=80
+map <Leader>n :NERDTreeToggle<CR>
+noremap x "_x"
+set lazyredraw
+set ttyfast
+map <Leader> <Plug>(easymotion-prefix)
+
+function! IPhpInsertUse()
+    call PhpInsertUse()
+    call feedkeys('a',  'n')
+endfunction
+autocmd FileType php inoremap <Leader>u <Esc>:call IPhpInsertUse()<CR>
+autocmd FileType php noremap <Leader>u :call PhpInsertUse()<CR>
+
+function! IPhpExpandClass()
+    call PhpExpandClass()
+    call feedkeys('a', 'n')
+endfunction
+autocmd FileType php inoremap <Leader>e <Esc>:call IPhpExpandClass()<CR>
+autocmd FileType php noremap <Leader>e :call PhpExpandClass()<CR>
