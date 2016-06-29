@@ -33,6 +33,7 @@ Plugin 'tacahiroy/ctrlp-funky'
 Bundle 'takac/vim-spotifysearch'
 Plugin 'scrooloose/nerdtree'
 Plugin 'vim-scripts/PreserveNoEOL'
+Plugin 'vim-scripts/sessionman.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -114,5 +115,4 @@ function! IPhpExpandClass()
     call feedkeys('a', 'n')
 endfunction
 autocmd FileType php noremap <Leader>e :call PhpExpandClass()<CR>
-
-source ~/.vim/sessions/iceberg.vim
+let g:syntastic_check_on_open = 0
