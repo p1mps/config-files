@@ -19,8 +19,9 @@ Bundle 'Shougo/unite.vim'
 Bundle 'joonty/vim-phpunitqf.git'
 Bundle 'farseer90718/vim-taskwarrior'
 Plugin 'tpope/vim-fugitive'
+Plugin 'nelstrom/vim-qargs'
 Plugin 'flazz/vim-colorschemes'
-Plugin 'rking/ag.vim'
+Plugin 'mileszs/ack.vim'
 Plugin 'vim-scripts/phpfolding.vim'
 Plugin 'vim-scripts/guicolorscheme.vim'
 Plugin 'gilgigilgil/anderson.vim'
@@ -34,6 +35,8 @@ Bundle 'takac/vim-spotifysearch'
 Plugin 'scrooloose/nerdtree'
 Plugin 'vim-scripts/PreserveNoEOL'
 Plugin 'vim-scripts/sessionman.vim'
+Plugin 'henrik/git-grep-vim'
+Plugin 'rking/ag.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -90,19 +93,24 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-let g:syntastic_php_checkers = ['php', 'phpcs']
+let g:syntastic_php_checkers = ['phpcs']
+let g:syntastic_php_phpcs_args="--standard=PSR2 -n"
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespac "
 set list
 nmap <Leader>l I\Logger::error(print_r($word, TRUE));
 set noeol
 noremap <Leader>f :CtrlPFunky<CR>
 noremap <Leader>t :CtrlPTag<CR>
-set colorcolumn=80
+set colorcolumn=120
 map <Leader>n :NERDTreeToggle<CR>
 noremap x "_x"
 set lazyredraw
 set ttyfast
 map <Leader> <Plug>(easymotion-prefix)
+
+"mapping wrapping words
+:nnoremap <Leader>" ciw""<Esc>P"
+:nnoremap <Leader>' ciw''<Esc>P'
 
 function! IPhpInsertUse()
     call PhpInsertUse()
@@ -115,4 +123,22 @@ function! IPhpExpandClass()
     call feedkeys('a', 'n')
 endfunction
 autocmd FileType php noremap <Leader>e :call PhpExpandClass()<CR>
-let g:syntastic_check_on_open = 0
+let g:syntastic_mode_map = { 'mode': 'passive' }
+let g:neocomplete#enable_at_startup = 1
+
+" Zoom / Restore window. {{{
+function! s:ZoomToggle() abort
+    if exists('t:zoomed') && t:zoomed
+        execute t:zoom_winrestcmd
+        let t:zoomed = 0
+    else
+        let t:zoom_winrestcmd = winrestcmd()
+        resize
+        vertical resize
+        let t:zoomed = 1
+    endif
+endfunction
+command! ZoomToggle call s:ZoomToggle()
+nnoremap <silent> <Esc>x :ZoomToggle<CR>
+" }}}
+autocmd VimEnter * SyntasticToggleMode
