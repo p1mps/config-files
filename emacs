@@ -31,10 +31,14 @@
 (use-package magit
   :ensure t)
 
+(use-package linum-relative
+  :ensure t
+  :config
+  ((linum-relative-mode t))
+
 (use-package org
   :ensure t)
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-(linum-relative-mode t)
