@@ -1,7 +1,3 @@
-;;  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
@@ -39,6 +35,17 @@
 (use-package org
   :ensure t)
 
+;; no tabs and 4 spaces
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
+;; no whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+;; disable yes-or-no
+(fset 'yes-or-no-p-history 'y-or-n-p)
+(setq confirm-nonexistent-file-or-buffer nil)
+;; get rid of splash screen
+(setq inhibit-startup-message t
+      inhibit-startup-echo-area-message t)
+;;; no backup files
+(setq make-backup-files nil)
+(global-auto-revert-mode t)
