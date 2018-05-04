@@ -33,8 +33,10 @@
 (use-package php-mode
   :ensure t)
 
-
 (use-package magit
+  :ensure t)
+
+(use-package dumb-jump
   :ensure t)
 
 ;; no tabs and 4 spaces
