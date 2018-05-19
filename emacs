@@ -45,6 +45,12 @@
 ;; no tabs and 4 spaces
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
+
+;; disable menu and scrollbar
+(menu-bar-mode -1)
+(toggle-scroll-bar -1)
+(tool-bar-mode -1)
+
 ;; no whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 ;; disable yes-or-no
@@ -56,6 +62,8 @@
 ;;; no backup files
 (setq make-backup-files nil)
 (global-auto-revert-mode t)
+
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
