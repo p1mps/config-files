@@ -36,6 +36,17 @@
 (use-package magit
   :ensure t)
 
+(use-package helm
+  :ensure t)
+
+(use-package helm-projectile
+  :ensure t
+  :config (bind-key "C-c C-f" 'helm-projectile-find-file-dwim))
+
+(use-package company
+  :ensure t
+  :init (global-company-mode))
+
 (use-package dumb-jump
   :ensure t
   :bind (("M-g" . dumb-jump-go)))
@@ -74,7 +85,7 @@
     ("e11569fd7e31321a33358ee4b232c2d3cf05caccd90f896e1df6cab228191109" "dd4db38519d2ad7eb9e2f30bc03fba61a7af49a185edfd44e020aa5345e3dca7" default)))
  '(package-selected-packages
    (quote
-    (linum-mode dump-jump dumb-jump magit php-mode flycheck linum-relative use-package zenburn-theme evil-visual-mark-mode))))
+    (company company-mode helm-projectile helm linum-mode dump-jump dumb-jump magit php-mode flycheck linum-relative use-package zenburn-theme evil-visual-mark-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
