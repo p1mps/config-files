@@ -41,7 +41,8 @@
 
 (use-package helm-projectile
   :ensure t
-  :config (bind-key "C-c C-f" 'helm-projectile-find-file-dwim))
+  :config (bind-key "C-c C-b" 'helm-buffers-list)
+  (bind-key "C-c C-f" 'helm-projectile-find-file-dwim))
 
 (use-package company
   :ensure t
