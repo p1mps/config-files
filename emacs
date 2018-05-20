@@ -1,6 +1,8 @@
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'load-path "/Users/andreaimparato/.emacs.d/dashboard/")
+
 (package-initialize)
 
 (unless (package-installed-p 'use-package)
@@ -11,13 +13,19 @@
 
 (use-package evil
   :ensure t
-  :config
-  (evil-mode t))
+  :config   (evil-mode t)
+  (defun next-line-and-recenter () (interactive) (next-line 2) (recenter))
+  (defun previous-line-and-recenter () (interactive) (previous-line 2) (recenter))
+  (global-set-key (kbd "M-k") 'previous-line-and-recenter))
+  (global-set-key (kbd "M-j") 'next-line-and-recenter)
+  ;;(bind-key "M-j" 'scroll-up-line)
+  ;;(bind-key "M-k" 'scroll-down-line))
 
-(use-package zenburn-theme
+(use-package dashboard
   :ensure t
   :config
-  (load-theme 'zenburn))
+  (dashboard-setup-startup-hook)
+   (setq dashboard-items '((recents  . 5) (projects . 5) (agenda . 5))))
 
 (use-package linum-relative
   :ensure t
@@ -42,7 +50,7 @@
 (use-package helm-projectile
   :ensure t
   :config (bind-key "C-c C-b" 'helm-buffers-list)
-  (bind-key "C-c C-f" 'helm-projectile-find-file-dwim))
+  (bind-key "C-c C-t" 'helm-projectile-find-file-dwim))
 
 (use-package company
   :ensure t
@@ -54,6 +62,7 @@
 (use-package fill-column-indicator
   :ensure t
   :init (fci-mode 1))
+
 
 (global-linum-mode 1)
 
@@ -95,3 +104,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(use-package zenburn-theme
+  :ensure t
+  :config
+  (load-theme 'zenburn))
