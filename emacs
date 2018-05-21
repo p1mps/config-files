@@ -1,7 +1,6 @@
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-(add-to-list 'load-path "/Users/andreaimparato/.emacs.d/dashboard/")
 
 (package-initialize)
 
@@ -18,8 +17,6 @@
   (defun previous-line-and-recenter () (interactive) (previous-line 2) (recenter))
   (global-set-key (kbd "M-k") 'previous-line-and-recenter))
   (global-set-key (kbd "M-j") 'next-line-and-recenter)
-  ;;(bind-key "M-j" 'scroll-up-line)
-  ;;(bind-key "M-k" 'scroll-down-line))
 
 (use-package dashboard
   :ensure t
@@ -63,7 +60,6 @@
   :ensure t
   :init (fci-mode 1))
 
-
 (global-linum-mode 1)
 
 ;; no tabs and 4 spaces
@@ -78,7 +74,8 @@
 ;; no whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 ;; disable yes-or-no
-(fset 'yes-or-no-p-history 'y-or-n-p)
+(defalias 'yes-or-no-p 'y-or-n-p)
+
 (setq confirm-nonexistent-file-or-buffer nil)
 ;; get rid of splash screen
 (setq inhibit-startup-message t
@@ -97,7 +94,7 @@
     ("e11569fd7e31321a33358ee4b232c2d3cf05caccd90f896e1df6cab228191109" "dd4db38519d2ad7eb9e2f30bc03fba61a7af49a185edfd44e020aa5345e3dca7" default)))
  '(package-selected-packages
    (quote
-    (fill-column-indicator company company-mode helm-projectile helm linum-mode dump-jump dumb-jump magit php-mode flycheck linum-relative use-package zenburn-theme evil-visual-mark-mode))))
+    (dashboard fill-column-indicator company company-mode helm-projectile helm linum-mode dump-jump dumb-jump magit php-mode flycheck linum-relative use-package zenburn-theme evil-visual-mark-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
