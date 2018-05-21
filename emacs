@@ -128,3 +128,5 @@
   :ensure t
   :config
   (load-theme 'zenburn))
+
+(global-set-key (kbd "C-w") 'ace-window)
