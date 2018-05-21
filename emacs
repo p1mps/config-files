@@ -82,6 +82,13 @@
   :ensure t
   :init (fci-mode 1))
 
+(use-package neotree
+  :ensure t
+  :config  (evil-define-key 'normal neotree-mode-map (kbd "TAB") 'neotree-enter)
+  (evil-define-key 'normal neotree-mode-map (kbd "SPC") 'neotree-quick-look)
+  (evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
+  (evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter))
+
 (global-linum-mode 1)
 
 ;; no tabs and 4 spaces
@@ -130,3 +137,4 @@
   (load-theme 'zenburn))
 
 (global-set-key (kbd "C-w") 'ace-window)
+(global-set-key (kbd "M-n") 'neotree-toggle)
