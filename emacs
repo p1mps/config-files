@@ -63,6 +63,9 @@
 
   (substitute-key-definition 'find-tag 'helm-etags-select global-map)
   (helm-mode 1))
+  
+(use-package projectile
+  :ensure t)
 
 (use-package helm-projectile
   :ensure t
