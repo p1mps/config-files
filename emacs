@@ -68,7 +68,7 @@
 
   (substitute-key-definition 'find-tag 'helm-etags-select global-map)
   (helm-mode 1))
-  
+
 (use-package projectile
   :ensure t)
 
@@ -96,6 +96,12 @@
   (evil-define-key 'normal neotree-mode-map (kbd "SPC") 'neotree-quick-look)
   (evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
   (evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter))
+
+(use-package multi-term
+  :ensure t)
+
+(use-package ac-php
+  :ensure t)
 
 (global-linum-mode 1)
 
