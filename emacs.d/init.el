@@ -10,7 +10,6 @@
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 (require 'setup-core)
-(require 'setup-theme)
 (require 'setup-helm)
 (require 'setup-php)
 (require 'setup-projectile)
@@ -32,3 +31,5 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(require 'setup-theme)
