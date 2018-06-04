@@ -26,6 +26,9 @@
 (use-package magit
   :ensure t)
 
+(use-package gherkin-mode
+  :ensure t)
+
 (use-package expand-region
   :ensure t
   :config
