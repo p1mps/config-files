@@ -58,10 +58,14 @@
 (setq make-backup-files nil)
 (global-auto-revert-mode t)
 
+;; Allow hash to be entered
+(global-set-key (kbd "M-3") '(lambda () (interactive) (insert "#")))
+;; show current line
+(global-hl-line-mode 1)
+
+;; global keys
 (global-set-key (kbd "C-w") 'ace-window)
 (global-set-key (kbd "M-n") 'neotree-toggle)
 (global-set-key (kbd "M-m") 'magit)
 
-;; Allow hash to be entered
-(global-set-key (kbd "M-3") '(lambda () (interactive) (insert "#")))
 (provide 'setup-core)
