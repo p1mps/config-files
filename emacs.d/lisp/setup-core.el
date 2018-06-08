@@ -37,6 +37,10 @@
 (use-package multi-term
   :ensure t)
 
+(use-package move-text
+  :ensure t
+  :config (move-text-default-bindings))
+
 (use-package eyebrowse
   :diminish eyebrowse-mode
   :config (progn
