@@ -1,6 +1,9 @@
 (use-package projectile
   :ensure t)
 
+(use-package ag
+  :ensure t)
+
 (use-package company
   :ensure t
   :init (global-company-mode))
