@@ -17,9 +17,6 @@
   :config
   (linum-relative-mode t))
 
-(use-package org
-  :ensure t)
-
 (use-package flycheck
   :ensure t)
 
@@ -76,7 +73,7 @@
 (global-auto-revert-mode t)
 
 ;; Allow hash to be entered
-(global-set-key (kbd "M-3") '(lambda () (interactive) (insert "#")))
+(global-set-key (kbd "C-3") '(lambda () (interactive) (insert "#")))
 ;; show current line
 (global-hl-line-mode 1)
 
