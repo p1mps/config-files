@@ -98,5 +98,6 @@ If the new path's directories does not exist, create them."
 (global-set-key (kbd "C-w") 'ace-window)
 (global-set-key (kbd "M-n") 'neotree-toggle)
 (global-set-key (kbd "M-m") 'magit)
+(setq ns-right-alternate-modifier nil)
 
 (provide 'setup-core)
