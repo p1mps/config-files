@@ -14,6 +14,7 @@
                )))
 
 (use-package php-mode
-  :ensure t)
+  :ensure t
+  :config (setq php-mode-coding-style 'psr2))
 
 (provide 'setup-php)
