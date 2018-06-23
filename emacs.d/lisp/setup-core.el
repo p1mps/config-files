@@ -1,3 +1,9 @@
+(use-package exec-path-from-shell
+  :ensure t
+  :config (when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize)))
+
+
 (use-package evil
   :ensure t
   :config   (evil-mode t)
@@ -39,6 +45,7 @@
   :config (move-text-default-bindings))
 
 (use-package eyebrowse
+  :ensure t
   :diminish eyebrowse-mode
   :config (progn
             (define-key eyebrowse-mode-map (kbd "M-1") 'eyebrowse-switch-to-window-config-1)
