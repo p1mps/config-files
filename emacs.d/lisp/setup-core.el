@@ -91,6 +91,11 @@
 ;; show current line
 (global-hl-line-mode 1)
 
+(defun dropbox-org ()
+;; opens the dropbox directory for my org files
+  (interactive)
+  (find-file "~/Dropbox/org"))
+
 ;; global keys
 (global-set-key (kbd "C-w") 'ace-window)
 (global-set-key (kbd "M-n") 'neotree-toggle)
