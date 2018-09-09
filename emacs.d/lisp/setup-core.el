@@ -78,8 +78,9 @@
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 
-;; no whitespace
+;; hooks
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 ;; disable yes-or-no
 (defalias 'yes-or-no-p 'y-or-n-p)
 
