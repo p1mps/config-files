@@ -8,9 +8,20 @@
   :ensure t
   :config   (evil-mode t)
   (defun next-line-and-recenter () (interactive) (next-line 2) (recenter))
-  (defun previous-line-and-recenter () (interactive) (previous-line 2) (recenter))
-  (global-set-key (kbd "M-k") 'previous-line-and-recenter))
-  (global-set-key (kbd "M-j") 'next-line-and-recenter)
+  (defun previous-line-and-recenter () (interactive) (previous-line 2) (recenter)))
+
+(use-package paredit
+  :init
+  (progn
+    (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
+    (add-hook 'clojure-mode-hook 'paredit-mode)
+    ;;(add-hook 'clojurescript-mode-hook 'paredit-mode)
+    (add-hook 'clojurec-mode-hook 'paredit-mode)
+    (add-hook 'cider-repl-mode-hook 'paredit-mode)))
+
+(use-package evil-cleverparens
+  :init   (add-hook 'paredit-mode-hook 'evil-cleverparens-mode)
+  :config (setq evil-cleverparens-swap-move-by-word-and-symbol t))
 
 (use-package dashboard
   :ensure t
@@ -102,10 +113,17 @@
   (interactive)
   (find-file "~/Dropbox/org"))
 
+(defun github ()
+;; opens the dropbox directory for my org files
+  (interactive)
+  (find-file "~/github"))
+
 ;; global keys
 (global-set-key (kbd "C-w") 'ace-window)
 (global-set-key (kbd "M-n") 'neotree-toggle)
 (global-set-key (kbd "M-m") 'magit)
+(global-set-key (kbd "M-j") 'next-line-and-recenter)
+(global-set-key (kbd "M-k") 'previous-line-and-recenter)
 (setq ns-right-alternate-modifier nil)
 
 (provide 'setup-core)
