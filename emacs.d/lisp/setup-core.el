@@ -11,6 +11,7 @@
   (defun previous-line-and-recenter () (interactive) (previous-line 2) (recenter)))
 
 (use-package paredit
+  :ensure t
   :init
   (progn
     (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
@@ -20,6 +21,7 @@
     (add-hook 'cider-repl-mode-hook 'paredit-mode)))
 
 (use-package evil-cleverparens
+  :ensure t
   :init   (add-hook 'paredit-mode-hook 'evil-cleverparens-mode)
   :config (setq evil-cleverparens-swap-move-by-word-and-symbol t))
 
