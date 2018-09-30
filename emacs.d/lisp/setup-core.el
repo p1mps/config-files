@@ -60,6 +60,19 @@
   :ensure t
   :config (move-text-default-bindings))
 
+(use-package powerline
+  :after (smart-mode-line)
+  :ensure t
+  :config (powerline-default-theme))
+
+(use-package smart-mode-line
+  :after (smart-mode-line-powerline-theme)
+  :ensure t
+  :config (sml/apply-theme 'light))
+
+(use-package smart-mode-line-powerline-theme
+  :ensure t)
+
 (use-package eyebrowse
   :ensure t
   :diminish eyebrowse-mode
