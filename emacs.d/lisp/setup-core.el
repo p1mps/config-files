@@ -3,7 +3,6 @@
   :config (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize)))
 
-
 (use-package evil
   :ensure t
   :config   (evil-mode t)
@@ -65,6 +64,9 @@
 (use-package rainbow-delimiters
   :ensure t
   :config (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+
+(use-package restart-emacs
+  :ensure t)
 
 (use-package eyebrowse
   :ensure t
@@ -128,8 +130,10 @@
 (global-set-key (kbd "C-w") 'ace-window)
 (global-set-key (kbd "M-n") 'neotree-toggle)
 (global-set-key (kbd "M-m") 'magit)
-(global-set-key (kbd "M-j") 'next-line-and-recenter)
-(global-set-key (kbd "M-k") 'previous-line-and-recenter)
+(define-key evil-motion-state-map (kbd "M-<down>") 'next-line-and-recenter)
+(define-key evil-motion-state-map (kbd "M-<up>") 'previous-line-and-recenter)
+
+
 (setq ns-right-alternate-modifier nil)
 
 (provide 'setup-core)
