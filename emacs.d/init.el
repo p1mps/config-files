@@ -15,6 +15,7 @@
 (require 'setup-projectile)
 (require 'setup-cider)
 (require 'setup-flycheck)
+(require 'setup-flyspell)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

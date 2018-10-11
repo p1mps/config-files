@@ -9,16 +9,6 @@
   (defun next-line-and-recenter () (interactive) (next-line 2) (recenter))
   (defun previous-line-and-recenter () (interactive) (previous-line 2) (recenter)))
 
-(use-package paredit
-  :ensure t
-  :init
-  (progn
-    (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
-    (add-hook 'clojure-mode-hook 'paredit-mode)
-    ;;(add-hook 'clojurescript-mode-hook 'paredit-mode)
-    (add-hook 'clojurec-mode-hook 'paredit-mode)
-    (add-hook 'cider-repl-mode-hook 'paredit-mode)))
-
 (use-package evil-cleverparens
   :ensure t
   :init   (add-hook 'paredit-mode-hook 'evil-cleverparens-mode)
