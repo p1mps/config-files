@@ -33,9 +33,19 @@ source $ZSH/oh-my-zsh.sh
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/caspar/.composer/vendor/bin:/usr/texbin
 
 #export PATH="$(brew --prefix homebrew/php/php54)/bin:$PATH"
-alias e="emacs"
-alias ec="emacsclient"
-alias ed="emacs --daemon"
+case `uname` in
+  Darwin)
+      # commands for OS X go here
+      alias e="/Applications/Emacs.app/Contents/MacOS/Emacs"
+      alias ec="emacsclient"
+      alias ed="/Applications/Emacs.app/Contents/MacOS/Emacs --daemon"
+      ;;
+  Linux)
+      alias e="emacs"
+      alias ec="emacsclient"
+      alias ed="emacs --daemon"
+      ;;
+esac
 alias l="ls -la"
 alias gs="git status"
 alias push="git push"
