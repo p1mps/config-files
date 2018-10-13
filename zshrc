@@ -25,7 +25,7 @@ export EDITOR="emacs"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git brew mysql-macports npm osx sublime laravel4 vagrant)
+plugins=(git osx lein)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -33,20 +33,9 @@ source $ZSH/oh-my-zsh.sh
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/caspar/.composer/vendor/bin:/usr/texbin
 
 #export PATH="$(brew --prefix homebrew/php/php54)/bin:$PATH"
-alias subl="/Applications/Sublime\ Text.app/Contents/MacOS/Sublime\ Text"
-alias serve="php artisan serve"
-alias vs="vagrant ssh"
-alias vu="vagrant up"
-alias vh="vagrant halt"
+alias ec="emacsclient"
+alias ed="emacs --daemon"
 alias l="ls -la"
 alias gs="git status"
-alias etico="ssh root@server-etico"
 alias push="git push"
-alias ricambi="cd /Users/caspar/Sites/ricambiguru"
-alias crawler="cd /Users/caspar/Sites/crawler"
-alias earth="cd /Users/caspar/Sites/easyearth"
 alias pull="git pull"
-PERL_MB_OPT="--install_base \"/Users/caspar/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/Users/caspar/perl5"; export PERL_MM_OPT;
-alias guru="ssh -p27123 -vv -i ~/Downloads/NuovoServizioEU.pem ubuntu@www.ricambi.guru"
-alias serve="php artisan serve"
