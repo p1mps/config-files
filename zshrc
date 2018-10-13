@@ -33,6 +33,7 @@ source $ZSH/oh-my-zsh.sh
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/caspar/.composer/vendor/bin:/usr/texbin
 
 #export PATH="$(brew --prefix homebrew/php/php54)/bin:$PATH"
+alias e="emacs"
 alias ec="emacsclient"
 alias ed="emacs --daemon"
 alias l="ls -la"
