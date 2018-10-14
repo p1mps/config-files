@@ -30,7 +30,7 @@ plugins=(git osx lein)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/caspar/.composer/vendor/bin:/usr/texbin
+export PATH=/Library/TeX/texbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/caspar/.composer/vendor/bin:/usr/texbin
 
 #export PATH="$(brew --prefix homebrew/php/php54)/bin:$PATH"
 case `uname` in
