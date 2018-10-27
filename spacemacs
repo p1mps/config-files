@@ -50,7 +50,9 @@ values."
             shell-default-position 'bottom)
      spell-checking
      syntax-checking
-     clojure
+     (clojure :variables
+              clojure-enable-sayid t
+              clojure-enable-clj-refactor t)
      version-control
      (osx :variables osx-use-option-as-meta nil)
      (latex :variables latex-build-command "LaTeX")
