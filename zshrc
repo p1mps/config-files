@@ -37,12 +37,12 @@ case `uname` in
   Darwin)
       # commands for OS X go here
       alias e="/Applications/Emacs.app/Contents/MacOS/Emacs"
-      alias ec="emacsclient"
+      alias ec="/usr/local/bin/emacsclient -c"
       alias ed="/Applications/Emacs.app/Contents/MacOS/Emacs --daemon"
       ;;
   Linux)
       alias e="emacs"
-      alias ec="emacsclient"
+      alias ec="emacsclient -c"
       alias ed="emacs --daemon"
       ;;
 esac
