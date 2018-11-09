@@ -58,3 +58,14 @@ alias rebase="git rebase master"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+function date_to_timestmap() {
+    timestamp=$(date -d "${1} ${2}" +"%s")
+    echo $timestamp;
+}
+
+
+function timestmap_to_date() {
+    date=$(date -d @${1})
+    echo $date;
+}

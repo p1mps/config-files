@@ -30,7 +30,8 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(html
+   '(csv
+     html
      yaml
      sql
      javascript
@@ -40,7 +41,8 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      helm
-     auto-completion
+     (auto-completion :variables
+                      auto-completion-enable-snippets-in-popup t)
      better-defaults
      emacs-lisp
      git
@@ -58,9 +60,17 @@ values."
      version-control
      (osx :variables osx-use-option-as-meta nil)
      (latex :variables latex-build-command "LaTeX")
+     (javascript :variables
+                 node-add-modules-path t
+                 js2-include-node-externs t
+                 js2-strict-missing-semi-warning nil
+                 js-indent-level 2
+                 javascript-backend 'tern)
      pdf
      php
      themes-megapack
+     node
+     dash
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -138,8 +148,8 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(flatland
-                         hc-zenburn
+   dotspacemacs-themes '(zenburn
+                         flatland
                          mustang
                          material
                          jazz
@@ -327,21 +337,8 @@ before packages are loaded. If you are unsure, you should try in setting them in
         mac-command-modifier 'meta
         x-select-enable-clipboard t)
 
-  (add-hook 'js-mode-hook 'flycheck-mode)
-
-  ;; make javascript not terrible
-  (setq js2-basic-offset 2)
-  (setq js2-include-node-externs t)
-  (setq js2-include-browser-externs t)
-  (setq js2-include-harmony-externs t)
-  (setq js2-bounce-indent-p t)
-  (setq js2-auto-indent-p nil)
-
-  (setq-default js2-show-parse-errors nil)
-  (setq-default js2-strict-missing-semi-warning nil)
-
   ;; json
-  (setq-default js-indent-level 2)
+  ;;(setq-default js-indent-level 2)
 
   (defun my/use-eslint-from-node-modules ()
     (let* ((root (locate-dominating-file
@@ -355,8 +352,6 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
   (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
 
-  (setq-default dotspacemacs-configuration-layers
-                '((javascript :variables node-add-modules-path t)))
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
   (setq-default fill-column 120)
   ;;(add-hook 'after-change-major-mode-hook 'fci-mode)
@@ -381,7 +376,9 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
   ;; Min number of lines to keep below/above the cursor in view.
   (setq-default scroll-margin 3)
- )
+  (add-hook 'doc-view-mode-hook 'auto-revert-mode)
+  (setq org-export-backends '(pdf md)))
+
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
 (custom-set-variables
@@ -398,6 +395,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
 (defun dotspacemacs/emacs-custom-settings ()
   "Emacs custom settings.
 This is an auto-generated function, do not modify its content directly, use
@@ -410,7 +408,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (yaml-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode impatient-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data reveal-in-osx-finder pbcopy osx-trash osx-dictionary launchctl smeargle orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download magit-gitflow htmlize helm-gitignore helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit magit-popup git-commit ghub treepy let-alist graphql with-editor company-statistics company clojure-snippets clj-refactor inflections edn multiple-cursors paredit peg cider-eval-sexp-fu cider sesman seq queue clojure-mode auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler winum volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg eval-sexp-fu highlight elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed ace-link ace-jump-helm-line helm helm-core popup which-key undo-tree org-plus-contrib hydra evil-unimpaired f s dash async aggressive-indent adaptive-wrap ace-window avy))))
+    (csv-mode reveal-in-osx-finder pbcopy osx-trash osx-dictionary launchctl smeargle orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download magit-gitflow htmlize helm-gitignore helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit magit-popup git-commit ghub treepy let-alist graphql with-editor company-statistics company clojure-snippets clj-refactor inflections edn multiple-cursors paredit peg cider-eval-sexp-fu cider sesman seq queue clojure-mode auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler winum volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg eval-sexp-fu highlight elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed ace-link ace-jump-helm-line helm helm-core popup which-key undo-tree org-plus-contrib hydra evil-unimpaired f s dash async aggressive-indent adaptive-wrap ace-window avy))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
