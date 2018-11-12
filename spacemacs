@@ -356,9 +356,6 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq-default fill-column 120)
   ;;(add-hook 'after-change-major-mode-hook 'fci-mode)
 
-  ;; Make emacsclient start maximized
-  (add-to-list 'default-frame-alist '(fullscreen . fullboth))
-
   ;; Enables editing compressed files like zip etc.
   (auto-compression-mode 1)
   (setq-default create-lockfiles nil)
