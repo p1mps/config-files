@@ -52,6 +52,7 @@ alias push="git push"
 alias pull="git pull"
 alias co="git checkout"
 alias rebase="git rebase master"
+alias functions-emulator="~/.nvm/versions/node/v6.14.0/bin/functions"
 
 
 # load nvm
