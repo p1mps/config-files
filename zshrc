@@ -7,7 +7,6 @@ export ZSH=$HOME/.oh-my-zsh
 # time that oh-my-zsh is loaded.
 export ZSH_THEME="robbyrussell"
 
-export EDITOR="emacs"
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
 
@@ -36,11 +35,13 @@ export PATH=/Library/TeX/texbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Us
 case `uname` in
   Darwin)
       # commands for OS X go here
+      export EDITOR="/Applications/Emacs.app/Contents/MacOS/Emacs"
       alias e="/Applications/Emacs.app/Contents/MacOS/Emacs"
       alias ec="/usr/local/bin/emacsclient -c"
       alias ed="/Applications/Emacs.app/Contents/MacOS/Emacs --daemon"
       ;;
   Linux)
+      export EDITOR="emacs"
       alias e="emacs"
       alias ec="emacsclient -c"
       alias ed="emacs --daemon"
