@@ -1,29 +1,8 @@
-(use-package exec-path-from-shell
-  :ensure t
-  :config (when (memq window-system '(mac ns x))
-  (exec-path-from-shell-initialize)))
-
-(use-package evil
-  :ensure t
-  :config   (evil-mode t)
-  (defun next-line-and-recenter () (interactive) (next-line 2) (recenter))
-  (defun previous-line-and-recenter () (interactive) (previous-line 2) (recenter)))
-
-(use-package evil-cleverparens
-  :ensure t
-  :init   (add-hook 'paredit-mode-hook 'evil-cleverparens-mode)
-  :config (setq evil-cleverparens-swap-move-by-word-and-symbol t))
-
 (use-package dashboard
   :ensure t
   :config
   (dashboard-setup-startup-hook)
-   (setq dashboard-items '((recents  . 5) (projects . 5) (agenda . 5))))
-
-(use-package evil-surround
-  :ensure t
-  :config
-  (global-evil-surround-mode 1))
+   (setq dashboard-items '((recents  . 5) (projects . 5))))
 
 (use-package linum-relative
   :ensure t
@@ -34,9 +13,6 @@
   :ensure t)
 
 (use-package magit
-  :ensure t)
-
-(use-package gherkin-mode
   :ensure t)
 
 (use-package expand-region
@@ -69,12 +45,33 @@
             (eyebrowse-mode t)
             (setq eyebrowse-new-workspace t)))
 
-;; put all backup files into ~/emacs_backups
-(setq backup-by-copying t)
-(setq backup-directory-alist '(("." . "~/emacs_backups")))
+(use-package god-mode
+  :ensure t
+  :config
+  (progn
+    (global-set-key (kbd "<escape>") 'god-mode-all)
+    (setq god-exempt-major-modes nil)
+    (setq god-exempt-predicates nil)))
 
-;; disable lock files
-(setq create-lockfiles nil)
+(use-package paredit
+  :ensure t
+  :config
+  (progn
+    (add-hook 'clojure-mode-hook #'enable-paredit-mode)
+    (add-hook 'emacs-lisp-mode-hook #'paredit-mode)
+    (add-hook 'lisp-interaction-mode-hook #'paredit-mode)
+    (add-hook 'ielm-mode-hook #'paredit-mode)
+    (add-hook 'lisp-mode-hook #'paredit-mode)
+    (add-hook 'eval-expression-minibuffer-setup-hook #'paredit-mode)))
+
+(use-package company
+  :ensure t
+  :defer t
+  :init (global-company-mode))
+
+(use-package which-key
+  :ensure t
+  :init (which-key-mode 1))
 
 (global-linum-mode 1)
 
@@ -87,22 +84,21 @@
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 
-;; hooks
+;; delete whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; disable yes-or-no
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 (setq confirm-nonexistent-file-or-buffer nil)
+
 ;; get rid of splash screen
 (setq inhibit-startup-message t
       inhibit-startup-echo-area-message t)
-;;; no backup files
-(setq make-backup-files nil)
-(global-auto-revert-mode t)
 
 ;; Allow hash to be entered
 (global-set-key (kbd "C-3") '(lambda () (interactive) (insert "#")))
+
 ;; show current line
 (global-hl-line-mode 1)
 
@@ -119,11 +115,13 @@
 ;; global keys
 (global-set-key (kbd "C-w") 'ace-window)
 (global-set-key (kbd "M-n") 'neotree-toggle)
-(global-set-key (kbd "M-m") 'magit)
-(define-key evil-motion-state-map (kbd "M-<down>") 'next-line-and-recenter)
-(define-key evil-motion-state-map (kbd "M-<up>") 'previous-line-and-recenter)
-
 
 (setq ns-right-alternate-modifier nil)
+
+(global-set-key (kbd "M-o") 'other-window)
+
+(setq mac-option-key-is-meta nil)
+(setq mac-right-option-modifier 'meta)
+
 
 (provide 'setup-core)
