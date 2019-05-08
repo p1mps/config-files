@@ -29,7 +29,7 @@ plugins=(git osx lein)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/Library/TeX/texbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/caspar/.composer/vendor/bin:/usr/texbin
+export PATH=~/bin:/Library/TeX/texbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/caspar/.composer/vendor/bin:/usr/texbin
 
 #export PATH="$(brew --prefix homebrew/php/php54)/bin:$PATH"
 case `uname` in
@@ -54,7 +54,6 @@ alias pull="git pull"
 alias co="git checkout"
 alias rebase="git rebase master"
 alias functions-emulator="~/.nvm/versions/node/v6.14.0/bin/functions"
-
 
 # load nvm
 export NVM_DIR="$HOME/.nvm"

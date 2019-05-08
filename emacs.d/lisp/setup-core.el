@@ -4,11 +4,6 @@
   (dashboard-setup-startup-hook)
    (setq dashboard-items '((recents  . 5) (projects . 5))))
 
-(use-package linum-relative
-  :ensure t
-  :config
-  (linum-relative-mode t))
-
 (use-package flycheck
   :ensure t)
 
@@ -97,7 +92,12 @@
       inhibit-startup-echo-area-message t)
 
 ;; Allow hash to be entered
+(global-set-key (kbd "C-2") '(lambda () (interactive) (insert "~")))
 (global-set-key (kbd "C-3") '(lambda () (interactive) (insert "#")))
+(global-set-key (kbd "C-4") '(lambda () (interactive) (insert "{")))
+(global-set-key (kbd "C-5") '(lambda () (interactive) (insert "}")))
+(global-set-key (kbd "C-6") '(lambda () (interactive) (insert "[")))
+(global-set-key (kbd "C-7") '(lambda () (interactive) (insert "]")))
 
 ;; show current line
 (global-hl-line-mode 1)
@@ -113,7 +113,6 @@
   (find-file "~/github"))
 
 ;; global keys
-(global-set-key (kbd "C-w") 'ace-window)
 (global-set-key (kbd "M-n") 'neotree-toggle)
 
 (setq ns-right-alternate-modifier nil)
