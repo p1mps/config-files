@@ -85,6 +85,7 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages
    '(
+     exec-path-from-shell
      idle-highlight-mode
      writeroom-mode)
    ;; A list of packages that cannot be updated.
@@ -322,7 +323,8 @@ values."
    ;; (default nil)
    dotspacemacs-whitespace-cleanup 'all
    dotspacemacs-colorize-cursor-according-to-state nil
-   ))
+   )
+  )
 
 (defun dotspacemacs/user-init ()
   "Initialization function for user code.
