@@ -64,7 +64,7 @@ values."
               clojure-enable-sayid t
               clojure-enable-clj-refactor t)
      version-control
-     (osx :variables osx-use-option-as-meta nil)
+     osx
      (latex :variables latex-build-command "LaTeX")
      (javascript :variables
                  node-add-modules-path t
@@ -332,6 +332,8 @@ values."
   )
 
 (defun dotspacemacs/user-config ()
+  (setq mac-option-key-is-meta t)
+  (setq mac-right-option-modifier nil)
   (beacon-mode 1))
 
 (defun dotspacemacs/user-init ()
@@ -343,10 +345,6 @@ before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
 
   (setq multi-term-program "/usr/bin/zsh")
-
-  (setq mac-option-modifier nil
-        mac-command-modifier 'meta
-        x-select-enable-clipboard t)
 
   (when (memq window-system '(mac ns x))
     (add-hook 'emacs-startup-hook #'exec-path-from-shell-initialize))
@@ -377,7 +375,9 @@ before packages are loaded. If you are unsure, you should try in setting them in
             (lambda ()
                    (idle-highlight-mode 1)))
 
-  (setq-default fill-column 120)
+  (setq-default fill-column 80)
+  (add-hook 'prog-mode-hook 'turn-on-fci-mode)
+  (add-hook 'text-mode-hook 'turn-on-fci-mode)
   ;;(add-hook 'after-change-major-mode-hook 'fci-mode)
 
   ;; Enables editing compressed files like zip etc.
@@ -447,10 +447,6 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(ansi-color-faces-vector
    [default bold shadow italic underline bold bold-italic bold])
- '(ansi-color-names-vector
-   ["#32302F" "#FB4934" "#B8BB26" "#FABD2F" "#83A598" "#D3869B" "#17CCD5" "#EBDBB2"])
- '(ansi-term-color-vector
--   [unspecified "#001100" "#007700" "#00bb00" "#007700" "#009900" "#00bb00" "#009900" "#00bb00"])
  '(background-color "#202020")
  '(background-mode dark)
  '(beacon-color "#cc6666")

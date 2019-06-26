@@ -5,7 +5,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-export ZSH_THEME="zeta"
+export ZSH_THEME="bira"
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -24,9 +24,11 @@ export ZSH_THEME="zeta"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git osx lein)
+plugins=(git osx lein zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
+
+#source "/Users/p1mps/.sdkman/bin/sdkman-init.sh"
 
 #export PATH="$(brew --prefix homebrew/php/php54)/bin:$PATH"
 case `uname` in
