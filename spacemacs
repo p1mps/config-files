@@ -344,6 +344,10 @@ executes.
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
 
+  (add-to-list 'load-path "~/.emacs.d/private/")
+  (require 'browser-refresh)
+  (global-set-key (kbd "M-r") 'browser-refresh)
+
   (setq multi-term-program "/usr/bin/zsh")
 
   (when (memq window-system '(mac ns x))
