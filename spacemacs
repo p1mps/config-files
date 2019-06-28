@@ -67,7 +67,15 @@ This function should only modify configuration layer settings."
               clojure-enable-sayid t
               clojure-enable-clj-refactor t)
      version-control
-     (osx :variables osx-use-option-as-meta nil)
+     (osx :variables
+          osx-command-as       'hyper
+          osx-option-as        'meta
+          osx-control-as       'control
+          osx-function-as      nil
+          osx-right-command-as 'left
+          osx-right-option-as  'none
+          osx-right-control-as 'left
+          osx-swap-option-and-command nil)
      latex
      (javascript :variables
                  node-add-modules-path t
