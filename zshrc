@@ -53,6 +53,7 @@ alias pull="git pull"
 alias co="git checkout"
 alias rebase="git rebase master"
 alias functions-emulator="~/.nvm/versions/node/v6.14.0/bin/functions"
+alias php=/usr/local/bin/php
 
 # load nvm
 export NVM_DIR="$HOME/.nvm"
