@@ -485,6 +485,12 @@ See the header of this file for more information."
   (add-hook 'markdown-mode-hook #'flycheck-mode)
   (add-hook 'text-mode-hook #'flycheck-mode)
   (add-hook 'message-mode-hook #'flycheck-mode)
+
+  (global-set-key (kbd "M-<left>") 'evil-window-left)
+  (global-set-key (kbd "M-<right>") 'evil-window-right)
+  (global-set-key (kbd "M-<down>") 'evil-window-down)
+  (global-set-key (kbd "M-<up>") 'evil-window-up)
+
   )
 
 
