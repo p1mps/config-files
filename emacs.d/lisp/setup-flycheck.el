@@ -11,6 +11,13 @@
   (setq flycheck-check-syntax-automatically '(save mode-enabled))
   (setq-default phpstan-executable "~/.config/composer/vendor/bin/phpstan"))
 
+(use-package flycheck-pos-tip
+  :ensure t
+  :config
+  (use-package flycheck
+    :config
+    (setq flycheck-display-errors-function 'flycheck-pos-tip-error-messages)))
+
 (defun my-php-mode-hook
     (flycheck-select-checker phpstan))
 

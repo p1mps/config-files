@@ -68,6 +68,11 @@
   :ensure t
   :init (which-key-mode 1))
 
+(use-package exec-path-from-shell
+  :ensure t
+  :init (when (memq window-system '(mac ns x))
+          (exec-path-from-shell-initialize)))
+
 (global-linum-mode 1)
 
 ;; no tabs and 4 spaces
@@ -118,9 +123,18 @@
 (setq ns-right-alternate-modifier nil)
 
 (global-set-key (kbd "M-o") 'other-window)
+(global-set-key (kbd "C-x C-j") 'dumb-jump-go)
+(global-set-key (kbd "C-x C-b") 'dumb-jump-back)
 
 (setq mac-option-key-is-meta nil)
 (setq mac-right-option-modifier 'meta)
 
+;; Directional window selection S-<left>, S-<right>, S-<up>, S-<down>
+(windmove-default-keybindings)
+
+;; highlight selected word in the buffer
+(use-package idle-highlight
+  :ensure t
+  :init (add-hook 'prog-mode-hook (lambda () (idle-highlight-mode t))))
 
 (provide 'setup-core)
