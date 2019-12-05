@@ -127,7 +127,7 @@
 (global-set-key (kbd "C-x C-b") 'dumb-jump-back)
 
 (setq mac-option-key-is-meta nil)
-(setq mac-right-option-modifier 'meta)
+(setq mac-left-option-modifier 'meta)
 
 ;; Directional window selection S-<left>, S-<right>, S-<up>, S-<down>
 (windmove-default-keybindings)
@@ -135,6 +135,18 @@
 ;; highlight selected word in the buffer
 (use-package idle-highlight
   :ensure t
-  :init (add-hook 'prog-mode-hook (lambda () (idle-highlight-mode t))))
+  :init (add-hook 'prog-mode-hook (lambda () (idle-highlight t))))
+
+(use-package beacon
+  :ensure t
+  :init (beacon-mode 1))
+
+(use-package writeroom-mode
+  :ensure t
+  :commands (writeroom-mode)
+  :config
+  (add-to-list 'writeroom-global-effects 'visual-line-mode)
+  (setq writeroom-restore-window-config t
+        writeroom-width 100))
 
 (provide 'setup-core)
