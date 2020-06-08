@@ -1,11 +1,20 @@
+(use-package zenburn-theme
+  :ensure t
+  :config
+  (load-theme 'zenburn t))
+
+
 (use-package dashboard
   :ensure t
   :config
   (dashboard-setup-startup-hook)
-   (setq dashboard-items '((recents  . 5) (projects . 5))))
+  (setq dashboard-items '((recents  . 5) (projects . 5))))
 
 (use-package flycheck
-  :ensure t)
+  :ensure t
+  :config
+  (add-hook 'after-init-hook #'global-flycheck-mode))
+
 
 (use-package magit
   :ensure t)
@@ -48,25 +57,61 @@
     (setq god-exempt-major-modes nil)
     (setq god-exempt-predicates nil)))
 
+
 (use-package paredit
   :ensure t
   :config
   (progn
-    (add-hook 'clojure-mode-hook #'enable-paredit-mode)
-    (add-hook 'emacs-lisp-mode-hook #'paredit-mode)
-    (add-hook 'lisp-interaction-mode-hook #'paredit-mode)
-    (add-hook 'ielm-mode-hook #'paredit-mode)
-    (add-hook 'lisp-mode-hook #'paredit-mode)
-    (add-hook 'eval-expression-minibuffer-setup-hook #'paredit-mode)))
+    (add-hook 'emacs-lisp-mode-hook       'enable-paredit-mode)
+    (add-hook 'lisp-mode-hook             'enable-paredit-mode)
+    (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
+    (add-hook 'scheme-mode-hook           'enable-paredit-mode)))
 
-(use-package company
-  :ensure t
-  :defer t
-  :init (global-company-mode))
-
+;; Which Key
 (use-package which-key
   :ensure t
-  :init (which-key-mode 1))
+  :init
+  (setq which-key-separator " ")
+  (setq which-key-prefix-prefix "+")
+  :config
+  (which-key-mode 1))
+
+;; Custom keybinding
+;; (use-package general
+;;   :ensure t
+;;   :config (general-define-key
+;;   :states '(emacs)
+;;   :prefix "SPC"
+;;   :non-normal-prefix "M-SPC"
+;;   "/"   '(helm-projectile-ag :which-key "find")
+;;   "TAB" '(switch-to-prev-buffer :which-key "previous buffer")
+;;   "SPC" '(helm-M-x :which-key "M-x")
+;;   "pf"  '(helm-find-files :which-key "find files")
+;;   ;; Buffers
+;;   "bb"  '(helm-buffers-list :which-key "buffers list")
+;;   ;; Window
+;;   "wl"  '(windmove-right :which-key "move right")
+;;   "wh"  '(windmove-left :which-key "move left")
+;;   "wk"  '(windmove-up :which-key "move up")
+;;   "wj"  '(windmove-down :which-key "move bottom")
+;;   "w/"  '(split-window-right :which-key "split right")
+;;   "w-"  '(split-window-below :which-key "split bottom")
+;;   "wx"  '(delete-window :which-key "delete window")
+;;   ;; Others
+;;   "at"  '(ansi-term :which-key "open terminal")
+;;   "gs"  '(magit-status :which-key "git") ))
+
+
+(global-set-key (kbd "C-c /") 'helm-projectile-ag)
+(global-set-key (kbd "C-c pf") 'helm-find-files)
+(global-set-key (kbd "C-c bb") 'helm-buffer-list)
+(global-set-key (kbd "C-c gs") 'magit-status)
+
+
+
+(use-package helm-ag
+  :ensure t)
+
 
 (use-package exec-path-from-shell
   :ensure t
@@ -79,74 +124,33 @@
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 
-;; disable menu and scrollbar
-(menu-bar-mode -1)
-(toggle-scroll-bar -1)
-(tool-bar-mode -1)
+;; Minimal UI
+(scroll-bar-mode -1)
+(tool-bar-mode   -1)
+(tooltip-mode    -1)
+(menu-bar-mode   -1)
+
+;; Fancy titlebar for MacOS
+(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+(add-to-list 'default-frame-alist '(ns-appearance . dark))
+(setq ns-use-proxy-icon  nil)
+(setq frame-title-format nil)
+
+;; font
+(setq default-frame-alist '((font . "Source Code Pro-14")))
+
+(use-package expand-region
+  :ensure t
+  :config (global-set-key (kbd "C-=") 'er/expand-region))
+
+;; Show matching parens
+(setq show-paren-delay 0)
+(show-paren-mode 1)
 
 ;; delete whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-;; disable yes-or-no
-(defalias 'yes-or-no-p 'y-or-n-p)
-
-(setq confirm-nonexistent-file-or-buffer nil)
-
-;; get rid of splash screen
-(setq inhibit-startup-message t
-      inhibit-startup-echo-area-message t)
-
-;; Allow hash to be entered
-(global-set-key (kbd "C-2") '(lambda () (interactive) (insert "~")))
-(global-set-key (kbd "C-3") '(lambda () (interactive) (insert "#")))
-(global-set-key (kbd "C-4") '(lambda () (interactive) (insert "{")))
-(global-set-key (kbd "C-5") '(lambda () (interactive) (insert "}")))
-(global-set-key (kbd "C-6") '(lambda () (interactive) (insert "[")))
-(global-set-key (kbd "C-7") '(lambda () (interactive) (insert "]")))
-
-;; show current line
-(global-hl-line-mode 1)
-
-(defun dropbox-org ()
-;; opens the dropbox directory for my org files
-  (interactive)
-  (find-file "~/Dropbox/org"))
-
-(defun github ()
-;; opens the dropbox directory for my org files
-  (interactive)
-  (find-file "~/github"))
-
-;; global keys
-(global-set-key (kbd "M-n") 'neotree-toggle)
-
-(setq ns-right-alternate-modifier nil)
-
-(global-set-key (kbd "M-o") 'other-window)
-(global-set-key (kbd "C-x C-j") 'dumb-jump-go)
-(global-set-key (kbd "C-x C-b") 'dumb-jump-back)
-
-(setq mac-option-key-is-meta nil)
-(setq mac-left-option-modifier 'meta)
-
-;; Directional window selection S-<left>, S-<right>, S-<up>, S-<down>
-(windmove-default-keybindings)
-
-;; highlight selected word in the buffer
-(use-package idle-highlight
-  :ensure t
-  :init (add-hook 'prog-mode-hook (lambda () (idle-highlight t))))
-
-(use-package beacon
-  :ensure t
-  :init (beacon-mode 1))
-
-(use-package writeroom-mode
-  :ensure t
-  :commands (writeroom-mode)
-  :config
-  (add-to-list 'writeroom-global-effects 'visual-line-mode)
-  (setq writeroom-restore-window-config t
-        writeroom-width 100))
+(use-package rainbow-delimiters
+  :ensure t)
 
 (provide 'setup-core)

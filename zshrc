@@ -34,7 +34,7 @@ source $ZSH/oh-my-zsh.sh
 case `uname` in
   Darwin)
       # commands for OS X go here
-      export EDITOR="/Applications/Emacs.app/Contents/MacOS/Emacs"
+      export EDITOR="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -c"
       alias e="/Applications/Emacs.app/Contents/MacOS/Emacs"
       alias ec="/usr/local/bin/emacsclient -c"
       alias ed="/Applications/Emacs.app/Contents/MacOS/Emacs --daemon"
@@ -54,19 +54,21 @@ alias co="git checkout"
 alias rebase="git rebase master"
 alias functions-emulator="~/.nvm/versions/node/v6.14.0/bin/functions"
 alias php=/usr/local/bin/php
-
-# load nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+alias lein=~/bin/lein
+alias intell="open /Applications/IntelliJ\ IDEA.app/Contents/MacOS/idea"
+alias node="~/.nvm/versions/node/v10.10.0/bin/node"
+alias dot="/usr/local/Cellar/xdot/1.1_1/bin/xdot"
 
 function date_to_timestmap() {
     timestamp=$(date -d "${1} ${2}" +"%s")
     echo $timestamp;
 }
 
-
 function timestmap_to_date() {
     date=$(date -d @${1})
     echo $date;
 }
+
+export DOCKER_REGISTRY=registry-k8s-001-test5-mcc-be-gcw1.metroscales.io
+export DOCKER_TAG=build
+export TERM=xterm-256color
