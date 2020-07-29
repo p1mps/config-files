@@ -1,0 +1,317 @@
+* Clojure's tricks and tips
+
+** Agenda
+*** Language's design
+*** Language's tricks and tips
+
+
+
+
+* Clojure is a lisp
+
+[[file:lisp_parenthesis.png]]
+
+
+Clojure is a lisp, lisp code is written in /*s-expressions*/:
+
+1. an atom, or
+2. an expression of the form (x y) where x and y are s-expressions.
+
+Examples:
+
+#+begin_src clojure
+(+ 1 2)
+#+end_src
+
+#+begin_src clojure
+(println "Hello world") ;; side-effects return nil
+#+end_src
+
+* Clojure runs on the JVM
+
+- Battle tested libraries
+- Security
+- Enterprise Applications
+
+
+* Functional programming language
+
+Clojure is a functional programmming language (/*first-class*/ functions)
+ with focus on /*immutable*/ data and lazyness
+
+Functions as:
+
+- variables
+- arguments
+- return values
+- anonymous functions
+
+
+* Immutable data
+
+All the clojure.core functions are pure
+
+#+begin_src clojure
+(def m {:a 1})
+#+end_src
+
+#+begin_src clojure
+(assoc m :a 2)
+#+end_src
+
+#+begin_src clojure
+m
+#+end_src
+
+- Pure functions are easier to test!
+- Given the same input they will ALWAYS provide the same output
+
+Data is at the clojure's core
+
+You start from empty data and using pure functions
+you transform it, returning it in output
+
+* Ring
+
+- spec request and response maps
+https://github.com/ring-clojure/ring/blob/master/SPEC
+
+- handlers
+A synchronous handler takes 1 argument, a request map, and returns a response
+map.
+
+#+begin_src clojure
+(defn handler
+   [request]
+   {:status 200
+    :headers {}
+    :body nil})
+#+end_src
+
+* Clojure data structures
+
+EDN (Extensible Data Notation): language to represent data (similar to
+JSON but with more types)
+
+- () lists
+- [] vectors
+- {} maps
+- nil, strings, booleans, keywords
+
+Clojure represents data as EDN Clojure code is a superset of EDN
+
+* Clojure is homoiconic
+
+Code Is Data; Data Is Code
+[[file:mind_blown.jpg]]
+
+* Quote (Treating Code as Data) Eval (Executing Data as Code)
+
+#+begin_src clojure
+'(map inc [1 2 3])
+#+end_src
+
+#+begin_src clojure
+(eval '(map inc [1 2 3]))
+#+end_src
+
+* Repl driven development
+
+In clojure there is no intepreter!
+Everything is evaluated, transformed and sent to the compiler.
+
+Makes repl driven development very enjoyable
+
+- No save, compile, run loop
+- Instant feedback
+- State of the application is preserved
+
+Functions are composable
+Data is inspectable
+Code is inspectable too!
+
+* Macros
+
+- compile time
+- you don't want to evaluate your arguments
+- summarize your code
+- good for libraries
+- you can create your own language
+- they are not composable though
+
+
+(when, cond, ->, ->>, GET, POST...)
+
+
+* Macros - example
+
+#+begin_src clojure
+(when (odd? 1) true)
+#+end_src
+
+(defmacro when
+  "Evaluates test. If logical true, evaluates body in an implicit do."
+  {:added "1.0"}
+  [test & body]
+  (list 'if test (cons 'do body)))
+
+
+
+* Lazyness
+
+- map
+- filter
+- remove
+- range
+- take
+- take-while
+- drop
+- drop-while
+
+Are all lazy, they consume sequences only when needed
+
+#+begin_src clojure
+(take 10 (map #(inc %) (range)))
+#+end_src
+
+#+begin_src clojure
+(take 10 (map #(even? %) (range)))
+#+end_src
+
+
+Good for data pipelines :)
+
+* Side effects
+
+Sometimes you do want to have side effects, for example to keep
+something in memory and update it on the go
+
+#+begin_src clojure
+(def a (atom {}))
+#+end_src
+
+#+begin_src clojure
+(swap! a assoc :a 2)
+#+end_src
+
+#+begin_src clojure
+@a
+#+end_src
+
+
+
+* Tips
+
+- use the -> and ->> macros to build data pipelines
+
+#+begin_src clojure
+(->>
+ [1 2 3]
+ (map #(inc %))
+ (filter even?))
+#+end_src
+
+#+begin_src clojure
+(->
+ 1
+ (inc)
+ (even?))
+#+end_src
+
+- map can take 2 arguments
+
+#+begin_src clojure
+ (map + [1 2 3] [4 5 6])
+#+end_src
+
+- use reduce when you want to transform from
+a data structure to another
+
+#+begin_src clojure
+(reduce (fn [result data]
+            (assoc result (first data) (second data)))
+        {}
+        [[:a 1] [:b 2] [:c 3]])
+#+end_src
+
+- use into for the same but more concise
+
+#+begin_src clojure
+(into {} [[:a 1] [:b 2] [:c 3]])
+#+end_src
+
+
+* Structured editing
+
+http://danmidwood.com/content/2014/11/21/animated-paredit.html
+
+
+# asd
+# * Clojure types
+# asd
+# * Most used core functions
+# * Deconstructing
+# * Developing clojure systems
+
+
+
+
+
+# ** A simple slide
+# This slide consists of some text with a number of bullet points:
+
+# - the first, very @important@, point!
+# - the previous point shows the use of the special markup which
+#   translates to the Beamer specific /alert/ command for highlighting
+#   text.
+
+
+# The above list could be numbered or any other type of list and may
+# include sub-lists.
+
+# ** Language's Design
+#    - Functional Programmming: Immutable data + first-class functions
+#    - Lisp: code written in s-expressions
+#    atom or
+#    (atom1 atom2)
+
+#    - Homoiconicity code is data and data is code easy to write macros
+#      Clojure is defined in terms of the evaluation of data structures
+#      and not in terms of the syntax of character streams/files
+#      Everything is evaluated and some things evaluate to themselves
+
+
+#    - JVM
+#      interop + battle tested libraries
+
+# ** Clojure types
+# *** Types:
+# **** basic types:
+#      All derived from Java types
+#      - characters: \f java.lang.Character
+#      - string "string" java.lang.String
+#      - Numbers: java.lang.Integer (int 10), java.lang.Long (long 10),
+#        java.lang.Double (double 10)
+#      - booleans: true false
+#      - keywords: :key clojure.lang.Keyword
+#      - symbols: 'foo clojure.lang.Symbol
+
+# **** data structures:
+#      - maps {}: hashmaps
+#      - vectors []: values added at the end, access by index
+#      - lists '() or (list): values added at the beginning (stacks)
+
+# **** nil
+
+# ** Tips and tricks
+
+# *** deconstructing
+
+# *** map vs for
+
+# ** Developing with clojure
+# *** Editors
+# *** The repl workflow
+
+# ** Component library
+# ** Compojure api
