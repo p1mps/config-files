@@ -12,9 +12,6 @@
   :ensure t
   :init (global-company-mode))
 
-(use-package dumb-jump
-  :ensure t)
-
 (use-package fill-column-indicator
   :ensure t
   :init (fci-mode 1))

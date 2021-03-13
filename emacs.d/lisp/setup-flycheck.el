@@ -1,24 +1,18 @@
-(use-package flycheck-phpstan
-  :ensure t
-  :after flycheck)
-
 (use-package flycheck
   :ensure t
-  :init
-  (global-flycheck-mode)
-  (add-hook 'php-mode-hook 'my-php-mode-hook)
   :config
-  (setq flycheck-check-syntax-automatically '(save mode-enabled))
-  (setq-default phpstan-executable "~/.config/composer/vendor/bin/phpstan"))
+  (add-hook 'after-init-hook #'global-flycheck-mode)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled)))
 
-(use-package flycheck-pos-tip
-  :ensure t
-  :config
-  (use-package flycheck
-    :config
-    (setq flycheck-display-errors-function 'flycheck-pos-tip-error-messages)))
+;; (use-package flycheck-clojure
+;;   :after flycheck
+;;   :ensure t
+;;   :commands (flycheck-clojure-setup)               ;; autoload
+;;   :config
+;;   (setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages))
 
-(defun my-php-mode-hook
-    (flycheck-select-checker phpstan))
+;; (use-package flycheck-pos-tip
+;;   :after flycheck
+;;   :ensure t)
 
 (provide 'setup-flycheck)

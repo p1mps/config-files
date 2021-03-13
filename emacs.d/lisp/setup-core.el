@@ -1,8 +1,13 @@
-(use-package zenburn-theme
+(use-package beacon
   :ensure t
-  :config
-  (load-theme 'zenburn t))
+  :config (beacon-mode 1))
 
+(use-package dumb-jump
+  :ensure t
+  :config (setq dumb-jump-selector 'helm)
+  (setq xref-backend-functions (remq 'etags--xref-backend xref-backend-functions))
+(add-to-list 'xref-backend-functions #'dumb-jump-xref-activate t)
+  )
 
 (use-package dashboard
   :ensure t
@@ -10,19 +15,38 @@
   (dashboard-setup-startup-hook)
   (setq dashboard-items '((recents  . 5) (projects . 5))))
 
-(use-package flycheck
-  :ensure t
-  :config
-  (add-hook 'after-init-hook #'global-flycheck-mode))
-
-
 (use-package magit
   :ensure t)
+
+(use-package dot-mode
+  :ensure t
+  :config
+  (global-dot-mode t))
+
+(use-package yasnippet
+  :ensure t
+  :config
+  (yas-global-mode 1))
+
+(use-package ace-jump-mode
+  :ensure t
+  :config
+  (define-key global-map (kbd "C-c q") 'ace-jump-mode))
+
+(use-package guru-mode
+  :ensure t
+  :config
+  (guru-global-mode 1))
 
 (use-package expand-region
   :ensure t
   :config
   (global-set-key (kbd "C-=") 'er/expand-region))
+
+(use-package idle-highlight-mode
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook (lambda () (idle-highlight-mode t))))
 
 (use-package multi-term
   :ensure t)
@@ -67,6 +91,12 @@
     (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
     (add-hook 'scheme-mode-hook           'enable-paredit-mode)))
 
+(use-package imenu-list
+  :bind ("C-." . imenu-list-smart-toggle)
+  :custom
+  (imenu-list-focus-after-activation t)
+  (imenu-list-auto-resize t))
+
 ;; Which Key
 (use-package which-key
   :ensure t
@@ -104,9 +134,28 @@
 
 (global-set-key (kbd "C-c /") 'helm-projectile-ag)
 (global-set-key (kbd "C-c pf") 'helm-find-files)
-(global-set-key (kbd "C-c bb") 'helm-buffer-list)
-(global-set-key (kbd "C-c gs") 'magit-status)
+;;(global-set-key (kbd "C-c bb") 'helm-buffer-list)
+(global-set-key (kbd "C-c g") 'magit-status)
+(global-set-key (kbd "C-c pw") 'projectile-switch-project)
+(global-set-key (kbd "C-c pa") 'projectile-ag)
+(global-set-key (kbd "M-o") 'other-window)
+(global-set-key (kbd "C-c /") 'comment-region)
+(global-set-key (kbd "C-c s p") 'spotify-play)
+(global-set-key (kbd "C-c s s") 'spotify-pause)
+(global-set-key (kbd "C-c s n") 'spotify-next)
+(global-set-key (kbd "C-c j") 'join-line)
+(global-set-key (kbd "C-a") 'back-to-indentation)
+(global-set-key (kbd "M-n") 'move-beginning-of-line)
+(global-set-key (kbd "C-c c") 'org-capture)
+(global-set-key (kbd "<RET>") 'newline-and-indent)
+(global-set-key (kbd "C-c o j") 'org-journal-new-entry)
 
+;;(setq mac-right-option-modifier nil)
+
+(fset 'yes-or-no-p 'y-or-n-p)
+;; extra color themese
+;; (add-to-list 'custom-theme-load-path
+;;              (file-name-as-directory "~/.emacs.d/private/replace-colorthemes"))
 
 
 (use-package helm-ag
@@ -119,6 +168,7 @@
           (exec-path-from-shell-initialize)))
 
 (global-linum-mode 1)
+(global-prettify-symbols-mode 1)
 
 ;; no tabs and 4 spaces
 (setq-default indent-tabs-mode nil)
@@ -128,16 +178,49 @@
 (scroll-bar-mode -1)
 (tool-bar-mode   -1)
 (tooltip-mode    -1)
-(menu-bar-mode   -1)
+;;(menu-bar-mode   -1)
+
+;; Line spacing, can be 0 for code and 1 or 2 for text
+(setq-default line-spacing 0)
+
+
+;; Underline line at descent position, not baseline position
+(setq x-underline-at-descent-line t)
+
+;; No ugly button for checkboxes
+(setq widget-image-enable nil)
+
+;; Line cursor and no blink
+;;(set-default 'cursor-type  '(bar . 1))
+;;(blink-cursor-mode 0)
+
+;; No sound
+(setq visible-bell t)
+(setq ring-bell-function 'ignore)
+
+;; No Tooltips
+(tooltip-mode 0)
+
+;; Paren mode is part of the theme
+(show-paren-mode t)
+
+
+;; Vertical window divider
+(setq window-divider-default-right-width 3)
+(setq window-divider-default-places 'right-only)
+(window-divider-mode)
+
+
+
+
 
 ;; Fancy titlebar for MacOS
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 (add-to-list 'default-frame-alist '(ns-appearance . dark))
-(setq ns-use-proxy-icon  nil)
-(setq frame-title-format nil)
+
 
 ;; font
-(setq default-frame-alist '((font . "Source Code Pro-14")))
+(setq default-frame-alist '((font . "Inconsolata 18")))
 
 (use-package expand-region
   :ensure t
@@ -147,10 +230,24 @@
 (setq show-paren-delay 0)
 (show-paren-mode 1)
 
+(add-hook 'text-mode-hook 'auto-fill-mode)
+(add-hook 'text-mode-hook 'goto-address-mode)
+
 ;; delete whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (use-package rainbow-delimiters
   :ensure t)
 
+(setq custom-theme-directory (concat user-emacs-directory "themes"))
+;; (load-theme 'default-black)
+
+;; (set-frame-position nil 0 -24)
+;; (set-frame-size nil 134 67)
+;; (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+;; (setq-default mode-line-format nil)
+ ;;(set-frame-parameter (selected-frame) 'alpha '(85 . 50))
+ ;; (add-to-list 'default-frame-alist '(alpha . (85 . 50)))
+(setq frame-title-format "")
+(setq-default shell-file-name "/bin/bash")
 (provide 'setup-core)
