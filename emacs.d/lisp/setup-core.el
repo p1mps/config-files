@@ -49,7 +49,9 @@
   (add-hook 'prog-mode-hook (lambda () (idle-highlight-mode t))))
 
 (use-package multi-term
-  :ensure t)
+  :ensure t
+  :config
+  (setq multi-term-program "/bin/zsh"))
 
 (use-package move-text
   :ensure t
@@ -60,6 +62,9 @@
   :config (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
 (use-package restart-emacs
+  :ensure t)
+
+(use-package spotify
   :ensure t)
 
 (use-package eyebrowse

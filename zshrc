@@ -72,3 +72,11 @@ function timestmap_to_date() {
 export DOCKER_REGISTRY=registry-k8s-001-test5-mcc-be-gcw1.metroscales.io
 export DOCKER_TAG=build
 export TERM=xterm-256color
+
+
+
+if [ -n "$INSIDE_EMACS" ]; then
+    export ZSH_THEME="rawsyntax"
+else
+    export ZSH_THEME="robbyrussell"
+fi
