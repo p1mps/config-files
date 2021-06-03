@@ -29,6 +29,28 @@
 (use-package ewal-spacemacs-themes
   :ensure t)
 
+(use-package theme-magic
+  :ensure t)
+
+(setq system-uses-terminfo nil)
+(setq multi-term-program "/bin/zsh")
+
+(add-hook 'term-mode-hook
+          (lambda ()
+            (setq term-buffer-maximum-size 10000)))
+(add-hook 'term-mode-hook
+          (lambda ()
+            (define-key term-raw-map (kbd "C-y") 'term-paste)))
+(add-hook 'term-mode-hook
+          (lambda ()
+            (add-to-list 'term-bind-key-alist '("M-[" . multi-term-prev))
+            (add-to-list 'term-bind-key-alist '("M-]" . multi-term-next))))
+
+(add-hook 'term-mode-hook
+          (lambda ()
+            (setq show-trailing-whitespace nil)
+            ))
+
 (load-theme 'default-black t)
 ;; (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
 ;; (use-package zenburn-theme

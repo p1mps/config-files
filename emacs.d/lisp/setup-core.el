@@ -67,6 +67,9 @@
 (use-package spotify
   :ensure t)
 
+(use-package vterm
+    :ensure t)
+
 (use-package eyebrowse
   :ensure t
   :diminish eyebrowse-mode
@@ -247,6 +250,8 @@
 (setq custom-theme-directory (concat user-emacs-directory "themes"))
 ;; (load-theme 'default-black)
 
+(setq-default truncate-lines t)
+
 ;; (set-frame-position nil 0 -24)
 ;; (set-frame-size nil 134 67)
 ;; (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
@@ -254,5 +259,15 @@
  ;;(set-frame-parameter (selected-frame) 'alpha '(85 . 50))
  ;; (add-to-list 'default-frame-alist '(alpha . (85 . 50)))
 (setq frame-title-format "")
-(setq-default shell-file-name "/bin/bash")
+
+(quelpa
+ '(quelpa-use-package
+   :fetcher git
+   :url "https://github.com/quelpa/quelpa-use-package.git"))
+(require 'quelpa-use-package)
+
+
+(use-package shelldon
+  :quelpa (shelldon :fetcher github :repo "Overdr0ne/shelldon"))
+
 (provide 'setup-core)
