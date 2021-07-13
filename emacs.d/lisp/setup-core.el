@@ -259,15 +259,51 @@
  ;;(set-frame-parameter (selected-frame) 'alpha '(85 . 50))
  ;; (add-to-list 'default-frame-alist '(alpha . (85 . 50)))
 (setq frame-title-format "")
+(setq-default shell-file-name "/bin/bash")
+;; (quelpa
+;;  '(quelpa-use-package
+;;    :fetcher git
+;;    :url "https://github.com/quelpa/quelpa-use-package.git"))
+;; (require 'quelpa-use-package)
 
-(quelpa
- '(quelpa-use-package
-   :fetcher git
-   :url "https://github.com/quelpa/quelpa-use-package.git"))
-(require 'quelpa-use-package)
+
+;; (use-package shelldon
+;;   :quelpa (shelldon :fetcher github :repo "Overdr0ne/shelldon"))
+
+(defun shell-command-on-buffer (command)
+  (interactive "sShell command on buffer: ")
+  (shell-command-on-region (point-min) (point-max) command t))
+
+;;(shell-command-on-buffer "ls")
+
+(setq comint-output-filter-functions
+      (remove 'ansi-color-process-output comint-output-filter-functions))
+
+(add-hook 'shell-mode-hook
+          (lambda ()
+            ;; Disable font-locking in this buffer to improve performance
+            (font-lock-mode -1)
+            ;; Prevent font-locking from being re-enabled in this buffer
+            (make-local-variable 'font-lock-function)
+            (setq font-lock-function (lambda (_) nil))
+            (add-hook 'comint-preoutput-filter-functions 'xterm-color-filter nil t)))
+(setenv "TERM" "xterm-256color")
+
+(setq explicit-shell-file-name "/bin/zsh")
+
+(use-package eterm-256color
+  :ensure t)
+
+(add-hook 'term-mode-hook #'eterm-256color-mode)
 
 
-(use-package shelldon
-  :quelpa (shelldon :fetcher github :repo "Overdr0ne/shelldon"))
+
+(use-package xterm-color
+  :ensure t)
+
+(defun docker ()
+  (interactive)
+  (setq project (read-string "Enter project:"))
+  (shell-command-on-buffer (string-join '("docker-compose -f /Users/andreaimparato/metro/cia/" (car project) " up")) ))
 
 (provide 'setup-core)

@@ -6,16 +6,19 @@
             [lein-eftest "0.5.9"]
             [hiccup-bridge "1.0.1"]
             [lein-figwheel "0.5.20"]
-            ;;[cider/piggieback "0.5.2"]
-            ;; Only necessary when using clj-refactor
-            ;;[org.clojure/tools.namespace "0.3.0-alpha4"]
+            [cider/piggieback "0.5.2"]
+            [org.clojure/tools.namespace "0.3.0-alpha4"]
             [lein-ns-dep-graph "0.2.0-SNAPSHOT"]
-            ;;[refactor-nrepl "2.4.0"]
+            [refactor-nrepl "2.4.0"]
             [lein-cloverage "1.1.1"]
             [reifyhealth/lein-git-down "0.3.5"]
             [lein-cljfmt "0.6.4"]
             [nrepl/nrepl "0.8.3"]
-            [jonase/eastwood "0.3.5"]]
+            [babashka/babashka.curl "0.0.3"]
+            [babashka/fs "0.0.5"]
+
+            [jonase/eastwood "0.3.5"]
+            ]
 
   ;;:repl-options {:nrepl-middleware [cider.piggieback/wrap-cljs-repl]}
 
