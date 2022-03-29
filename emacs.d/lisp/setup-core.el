@@ -285,7 +285,7 @@
 (add-hook 'shell-mode-hook
           (lambda ()
             ;; Disable font-locking in this buffer to improve performance
-            (font-lock-mode -1)
+            ;;(font-lock-mode -1)
             ;; Prevent font-locking from being re-enabled in this buffer
             (make-local-variable 'font-lock-function)
             (setq font-lock-function (lambda (_) nil))
@@ -297,10 +297,10 @@
 (use-package eterm-256color
   :ensure t)
 
-;; (add-hook 'term-mode-hook
-;;           (lambda ()
-;;             (eterm-256color-mode)
-;;             (define-key term-raw-map (kbd "C-y") 'term-paste)))
+(add-hook 'term-mode-hook
+          (lambda ()
+            (eterm-256color-mode)
+            (define-key term-raw-map (kbd "C-y") 'term-paste)))
 
 
 (use-package ace-window
