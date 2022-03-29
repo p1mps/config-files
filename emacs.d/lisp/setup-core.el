@@ -67,8 +67,6 @@
 (use-package spotify
   :ensure t)
 
-(use-package vterm
-    :ensure t)
 
 (use-package eyebrowse
   :ensure t
@@ -98,12 +96,6 @@
     (add-hook 'lisp-mode-hook             'enable-paredit-mode)
     (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
     (add-hook 'scheme-mode-hook           'enable-paredit-mode)))
-
-(use-package imenu-list
-  :bind ("C-." . imenu-list-smart-toggle)
-  :custom
-  (imenu-list-focus-after-activation t)
-  (imenu-list-auto-resize t))
 
 ;; Which Key
 (use-package which-key
@@ -141,12 +133,13 @@
 
 
 (global-set-key (kbd "C-c /") 'helm-projectile-ag)
+(global-set-key (kbd "M-,") 'pop-global-mark)
 (global-set-key (kbd "C-c pf") 'helm-find-files)
 ;;(global-set-key (kbd "C-c bb") 'helm-buffer-list)
 (global-set-key (kbd "C-c g") 'magit-status)
 (global-set-key (kbd "C-c pw") 'projectile-switch-project)
 (global-set-key (kbd "C-c pa") 'projectile-ag)
-(global-set-key (kbd "M-o") 'other-window)
+;;(global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "C-c /") 'comment-region)
 (global-set-key (kbd "C-c s p") 'spotify-play)
 (global-set-key (kbd "C-c s s") 'spotify-pause)
@@ -157,6 +150,16 @@
 (global-set-key (kbd "C-c c") 'org-capture)
 (global-set-key (kbd "<RET>") 'newline-and-indent)
 (global-set-key (kbd "C-c o j") 'org-journal-new-entry)
+(global-set-key (kbd "C-c x g") 'xwidget-webkit-browse-url)
+(global-set-key (kbd "C-c t t") 'multi-term)
+(global-set-key (kbd "C-c c") 'term-char-mode)
+(global-set-key (kbd "C-c l") 'term-line-mode)
+
+;; (global-set-key (kbd "C-M-a") 'backward-sentence)
+;; (global-set-key (kbd "C-M-f") 'forward-sentence)
+
+;; (global-set-key (kbd "M-a") 'beginning-of-defun)
+;; (global-set-key (kbd "M-f") 'end-of-defun)
 
 ;;(setq mac-right-option-modifier nil)
 
@@ -186,7 +189,7 @@
 (scroll-bar-mode -1)
 (tool-bar-mode   -1)
 (tooltip-mode    -1)
-;;(menu-bar-mode   -1)
+(menu-bar-mode   -1)
 
 ;; Line spacing, can be 0 for code and 1 or 2 for text
 (setq-default line-spacing 0)
@@ -294,9 +297,16 @@
 (use-package eterm-256color
   :ensure t)
 
-(add-hook 'term-mode-hook #'eterm-256color-mode)
+;; (add-hook 'term-mode-hook
+;;           (lambda ()
+;;             (eterm-256color-mode)
+;;             (define-key term-raw-map (kbd "C-y") 'term-paste)))
 
 
+(use-package ace-window
+  :ensure t
+  :config
+  (global-set-key (kbd "M-o") 'ace-window))
 
 (use-package xterm-color
   :ensure t)
@@ -305,5 +315,15 @@
   (interactive)
   (setq project (read-string "Enter project:"))
   (shell-command-on-buffer (string-join '("docker-compose -f /Users/andreaimparato/metro/cia/" (car project) " up")) ))
+
+(use-package highlight-indentation
+  :ensure t)
+
+(use-package dot-mode
+  :ensure t
+  :config
+  (setq dot-mode-global-mode t)
+  (global-set-key (kbd "M-/") 'dot-mode-execute))
+
 
 (provide 'setup-core)

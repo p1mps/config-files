@@ -1,48 +1,34 @@
-(setq exec-path (append exec-path '("~/.nvm/versions/node/vv11.11.0/bin")))
+;;(setq exec-path (append exec-path '("~/.nvm/versions/node/vv11.11.0/bin")))
 
-(use-package tide
-  :ensure t
-  :init
-  (setq tide-tsserver-executable "~/.nvm/versions/node/v11.11.0/bin/tsserver"))
+(use-package emmet-mode
+  :ensure t)
 
 
-(defun setup-tide-mode ()
-  (interactive)
-  (tide-setup)
-  (flycheck-mode +1)
-  (setq flycheck-check-syntax-automatically '(save mode-enabled))
-  (eldoc-mode +1)
-  (tide-hl-identifier-mode +1)
-  ;; company is an optional dependency. You have to
-  ;; install it separately via package-install
-  ;; \M-x package-install [ret] company``
-  (company-mode +1))
-
-
-
-(setq company-tooltip-align-annotations t)
-
-
+(add-hook 'web-mode-hook  'emmet-mode)
 
 ;; formats the buffer before saving
+(defun web-mode-init-hook ()
+  "Hooks for Web mode.  Adjust indent."
+  (setq web-mode-markup-indent-offset 4))
 
-;;(add-hook 'before-save-hook 'tide-format-before-save)
-(add-hook 'typescript-mode-hook #'setup-tide-mode)
-(add-hook 'js2-mode-hook #'setup-tide-mode)
+(setq-default flycheck-disabled-checkers
+              (append flycheck-disabled-checkers
+                      '(javascript-jshint json-jsonlist)))
+;; Enable eslint checker for web-mode
+(flycheck-add-mode 'javascript-eslint 'web-mode)
+;; Enable flycheck globally
+(add-hook 'after-init-hook #'global-flycheck-mode)
+(add-hook 'web-mode-hook  'web-mode-init-hook)
 
 ;; configure javascript-tide checker to run after default javascript checker
 
-(flycheck-add-next-checker 'javascript-eslint 'javascript-tide 'append)
 
 (use-package web-mode
   :ensure t
   :config
   (progn
-    (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))))
-
-(use-package js2-mode
-  :ensure t
-
-  )
+    (setq web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
+    (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+    (add-to-list 'auto-mode-alist '("\\.jsx?$" . web-mode))))
 
 (provide 'setup-javascript)
