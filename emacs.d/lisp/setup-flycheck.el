@@ -1,7 +1,7 @@
 (use-package flycheck
   :ensure t
+  :init (global-flycheck-mode)
   :config
-  (add-hook 'after-init-hook #'global-flycheck-mode)
   (setq flycheck-check-syntax-automatically '(save mode-enabled)))
 
 ;; (use-package flycheck-clojure

@@ -11,14 +11,13 @@
   :after aggressive-indent flycheck-clj-kondo
   :ensure t
   :config
-  (add-hook 'clojure-mode-hook #'aggressive-indent-mode)
-  (setq clojure-indent-style 'align-arguments)
+  ;; (add-hook 'clojure-mode-hook #'aggressive-indent-mode)
+  ;; (setq clojure-indent-style 'align-arguments)
   (progn (setq prettify-symbols-alist
-               '(
-                 ("lambda" . 955)            ; λ
+               '(("lambda" . 955)            ; λ
                  ("->" . 8594)               ; →
                  ("=>" . 8658)               ; ⇒
-                 ("map" . 8614)   ; ↦
+                 ("map" . 8614)              ; ↦
                  ))
          (setq clojure-align-forms-automatically t)
          (yas-minor-mode 1)
