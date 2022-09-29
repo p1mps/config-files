@@ -4,16 +4,18 @@
 
 (use-package dumb-jump
   :ensure t
-  :config (setq dumb-jump-selector 'helm)
-  (setq xref-backend-functions (remq 'etags--xref-backend xref-backend-functions))
-(add-to-list 'xref-backend-functions #'dumb-jump-xref-activate t)
-  )
+  :config
+  (progn
+    (setq dumb-jump-selector 'helm)
+    (setq xref-backend-functions (remq 'etags--xref-backend xref-backend-functions))
+    (add-to-list 'xref-backend-functions #'dumb-jump-xref-activate t)))
 
 (use-package dashboard
   :ensure t
   :config
-  (dashboard-setup-startup-hook)
-  (setq dashboard-items '((recents  . 5) (projects . 5))))
+  (progn
+    (dashboard-setup-startup-hook)
+    (setq dashboard-items '((recents  . 5) (projects . 5)))))
 
 (use-package magit
   :ensure t)
@@ -67,6 +69,8 @@
 (use-package spotify
   :ensure t)
 
+(use-package desktop+
+  :ensure t)
 
 (use-package eyebrowse
   :ensure t
@@ -231,7 +235,7 @@
 
 
 ;; font
-(setq default-frame-alist '((font . "Inconsolata 18")))
+(setq default-frame-alist '((font . "Inconsolata 14")))
 
 (use-package expand-region
   :ensure t
@@ -282,14 +286,16 @@
 (setq comint-output-filter-functions
       (remove 'ansi-color-process-output comint-output-filter-functions))
 
-(add-hook 'shell-mode-hook
-          (lambda ()
-            ;; Disable font-locking in this buffer to improve performance
-            ;;(font-lock-mode -1)
-            ;; Prevent font-locking from being re-enabled in this buffer
-            (make-local-variable 'font-lock-function)
-            (setq font-lock-function (lambda (_) nil))
-            (add-hook 'comint-preoutput-filter-functions 'xterm-color-filter nil t)))
+;; (add-hook 'shell-mode-hook
+;;           (lambda ()
+;;             ;; Disable font-locking in this buffer to improve performance
+;;             ;;(font-lock-mode -1)
+;;             ;; Prevent font-locking from being re-enabled in this buffer
+;;             (make-local-variable 'font-lock-function)
+;;             (setq font-lock-function (lambda (_) nil))
+;;             (ansi-color-for-comint-mode-on)
+;;             (add-hook 'comint-preoutput-filter-functions 'xterm-color-filter nil t)))
+
 (setenv "TERM" "xterm-256color")
 
 (setq explicit-shell-file-name "/bin/zsh")
@@ -311,19 +317,47 @@
 (use-package xterm-color
   :ensure t)
 
-(defun docker ()
-  (interactive)
-  (setq project (read-string "Enter project:"))
-  (shell-command-on-buffer (string-join '("docker-compose -f /Users/andreaimparato/metro/cia/" (car project) " up")) ))
-
 (use-package highlight-indentation
   :ensure t)
 
 (use-package dot-mode
   :ensure t
   :config
-  (setq dot-mode-global-mode t)
-  (global-set-key (kbd "M-/") 'dot-mode-execute))
+  (progn  (setq dot-mode-global-mode t)
+          (global-set-key (kbd "M-/") 'dot-mode-execute)))
+
+(defun close-all-buffers ()
+  (interactive)
+  (mapc 'kill-buffer (buffer-list)))
+
+(use-package spaceline
+  :ensure t)
+
+(use-package spaceline-config
+  :ensure spaceline
+  :init
+  (progn
+    (spaceline-emacs-theme)
+    (spaceline-toggle-minor-modes-off)
+    (spaceline-toggle-buffer-encoding-off)
+    (spaceline-toggle-buffer-encoding-abbrev-off)
+    (spaceline-toggle-projectile-root-on)
+    (spaceline-toggle-buffer-modified-on)
+    (spaceline-toggle-window-number-on))
+  :config
+  (setq powerline-default-separator 'arrow-fade)
+  (setq spaceline-workspace-numbers-unicode t)
+  (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
+  (spaceline-define-segment line-column
+    "The current line and column numbers."
+    "l:%l c:%2c")
+  (spaceline-define-segment time
+    "The current time."
+    (format-time-string "%h %d %H:%d"))
+  (spaceline-toggle-time-on)
+  (spaceline-emacs-theme 'time))
+
+
 
 
 (provide 'setup-core)
