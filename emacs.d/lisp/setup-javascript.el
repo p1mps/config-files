@@ -11,13 +11,13 @@
   "Hooks for Web mode.  Adjust indent."
   (setq web-mode-markup-indent-offset 4))
 
-(setq-default flycheck-disabled-checkers
-              (append flycheck-disabled-checkers
-                      '(javascript-jshint json-jsonlist)))
+;; (setq-default flycheck-disabled-checkers
+;;               (append flycheck-disabled-checkers
+;;                       '(javascript-jshint json-jsonlist)))
 ;; Enable eslint checker for web-mode
-(flycheck-add-mode 'javascript-eslint 'web-mode)
+;;(flycheck-add-mode 'javascript-eslint 'web-mode)
 ;; Enable flycheck globally
-(add-hook 'after-init-hook #'global-flycheck-mode)
+;;(add-hook 'after-init-hook #'global-flycheck-mode)
 (add-hook 'web-mode-hook  'web-mode-init-hook)
 
 ;; configure javascript-tide checker to run after default javascript checker

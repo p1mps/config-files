@@ -3,7 +3,8 @@
   :init
   (setq projectile-require-project-root nil)
   :config
-  (projectile-mode 1))
+  (progn (projectile-mode 1)
+         ))
 
 (use-package ag
   :ensure t)

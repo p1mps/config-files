@@ -68,12 +68,11 @@
 
 
 (use-package org-journal
-  :bind
-  ("C-c n j" . org-journal-new-entry)
+  :ensure t
   :custom
   (org-journal-date-prefix "#+title: ")
   (org-journal-file-format "%Y-%m-%d.org")
-  (org-journal-dir "~/journal")
+  (org-journal-dir "~/work/journal")
   (org-journal-date-format "%A, %d %B %Y"))
 
 (use-package org-download
@@ -84,7 +83,7 @@
         (("s-Y" . org-download-screenshot)
          ("s-y" . org-download-yank))))
 
-(setq org-directory (concat (getenv "HOME") "/Documents/notes/"))
+(setq org-directory "~/work/notes/")
 
 
 (use-package org-roam

@@ -159,6 +159,8 @@
 (global-set-key (kbd "C-c c") 'term-char-mode)
 (global-set-key (kbd "C-c l") 'term-line-mode)
 
+(require 'ts)
+
 ;; (global-set-key (kbd "C-M-a") 'backward-sentence)
 ;; (global-set-key (kbd "C-M-f") 'forward-sentence)
 
@@ -182,7 +184,7 @@
   :init (when (memq window-system '(mac ns x))
           (exec-path-from-shell-initialize)))
 
-(global-linum-mode 1)
+;;(global-linum-mode 1)
 (global-prettify-symbols-mode 1)
 
 ;; no tabs and 4 spaces
@@ -197,7 +199,6 @@
 
 ;; Line spacing, can be 0 for code and 1 or 2 for text
 (setq-default line-spacing 0)
-
 
 ;; Underline line at descent position, not baseline position
 (setq x-underline-at-descent-line t)
@@ -219,14 +220,10 @@
 ;; Paren mode is part of the theme
 (show-paren-mode t)
 
-
 ;; Vertical window divider
-(setq window-divider-default-right-width 3)
+(setq window-divider-default-right-width 0)
 (setq window-divider-default-places 'right-only)
 (window-divider-mode)
-
-
-
 
 
 ;; Fancy titlebar for MacOS
@@ -259,12 +256,12 @@
 
 (setq-default truncate-lines t)
 
-;; (set-frame-position nil 0 -24)
-;; (set-frame-size nil 134 67)
-;; (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+;;(set-frame-position nil 0 -24)
+;;(set-frame-size nil 134 67)
+(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 ;; (setq-default mode-line-format nil)
- ;;(set-frame-parameter (selected-frame) 'alpha '(85 . 50))
- ;; (add-to-list 'default-frame-alist '(alpha . (85 . 50)))
+(set-frame-parameter (selected-frame) 'alpha '(90 . 50))
+(add-to-list 'default-frame-alist '(alpha . (90 . 50)))
 (setq frame-title-format "")
 (setq-default shell-file-name "/bin/bash")
 ;; (quelpa
@@ -358,6 +355,16 @@
   (spaceline-emacs-theme 'time))
 
 
+(use-package ts
+  :ensure t)
 
+(defun yesterday-notes ()
+    (interactive)
+    (let* ((yesterday (ts-format "%Y-%m-%d" (ts-adjust 'day -1 (ts-now))))
+           (path (concat
+              "/home/p1mps/work/journal/"
+              yesterday
+              ".org")))
+  (find-file path)))
 
 (provide 'setup-core)
