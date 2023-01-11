@@ -151,13 +151,17 @@
 (global-set-key (kbd "C-c j") 'join-line)
 (global-set-key (kbd "C-a") 'back-to-indentation)
 (global-set-key (kbd "M-n") 'move-beginning-of-line)
-(global-set-key (kbd "C-c c") 'org-capture)
+
 (global-set-key (kbd "<RET>") 'newline-and-indent)
-(global-set-key (kbd "C-c o j") 'org-journal-new-entry)
 (global-set-key (kbd "C-c x g") 'xwidget-webkit-browse-url)
 (global-set-key (kbd "C-c t t") 'multi-term)
 (global-set-key (kbd "C-c c") 'term-char-mode)
 (global-set-key (kbd "C-c l") 'term-line-mode)
+(global-set-key (kbd "C-c o a") 'org-agenda)
+
+(global-set-key (kbd "C-c o i") 'org-roam-node-insert)
+(global-set-key (kbd "C-c o f") 'org-roam-node-find)
+(global-set-key (kbd "C-c o c") 'org-roam-capture)
 
 (require 'ts)
 
@@ -233,6 +237,12 @@
 
 ;; font
 (setq default-frame-alist '((font . "Inconsolata 14")))
+
+(set-face-attribute 'default nil
+                    :family "Inconsolata"
+                    :height 140
+                    :weight 'normal
+                    :width 'normal)
 
 (use-package expand-region
   :ensure t

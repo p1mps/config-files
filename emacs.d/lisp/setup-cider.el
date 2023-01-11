@@ -5,7 +5,8 @@
   :ensure t
   :config
   (progn
-    (setq cljr-auto-clean-ns -1)))
+    (setq cljr-auto-clean-ns -1)
+    (setq cljr-auto-sort-ns -1)))
 
 (use-package clojure-mode
   :after aggressive-indent
@@ -27,7 +28,8 @@
     (add-hook 'clojure-mode-hook #'clj-refactor-mode)
     (add-hook 'clojure-mode-hook #'subword-mode)
     (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
-    (cljr-add-keybindings-with-prefix "C-c C-m")))
+    (cljr-add-keybindings-with-prefix "C-c C-m")
+    (local-set-key [f8] 'cider-pprint-eval-defun-to-comment)))
 
 (use-package cider
   :ensure t
@@ -43,6 +45,7 @@
     (setq cider-repl-wrap-history t)
     (setq cider-repl-history-file ".cider-repl-history")
     (setq nrepl-log-messages t)
+    ;;(setq lsp-apply-edits-after-file-operations t)
 
     (add-hook 'cider-mode-hook #'eldoc-mode)
     (add-hook 'cider-repl-mode-hook #'eldoc-mode)
